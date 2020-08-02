@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders title', () => {
   const { getByText } = render(<App />);
-  const titleElement = getByText(/character/i);
+  const titleElement = getByText(/creator/i);
   expect(titleElement).toBeInTheDocument();
 });
