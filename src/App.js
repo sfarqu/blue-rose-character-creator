@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
+import Dice from './Dice';
 import './App.css';
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Editing <code>src/App.js</code>.
         </p>
         <a
           className="App-link"
@@ -18,6 +19,7 @@ function App() {
         >
           Learn React
         </a>
+        <Dice numberOfDice="2" />
       </header>
     </div>
   );
