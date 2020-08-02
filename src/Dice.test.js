@@ -4,13 +4,13 @@ import { render } from '@testing-library/react';
 import Dice from './Dice';
 
 test('renders blank dice button', () => {
-  render(<Dice numberOfDice="1" />);
-  expect(screen.getByRole('button')).not.toHaveAttribute('value');
+  render(<Dice numberOfDice={1} sum={10} />);
+  expect(screen.getByTitle('Dice Roll Result')).toHaveAttribute('value');
 });
 
-test('renders dice button with roll sum after click', () => {
-    render(<Dice numberOfDice="1" />);
-    fireEvent.click(screen.getByRole('button'));
-    expect(screen.getByRole('button')).toHaveAttribute('value');
+test('onClick property modifies value', () => {
+    render(<Dice numberOfDice={1} onClick={() => screen.getByRole('button').setAttribute("value", "test") } />);
+    fireEvent.click(screen.getByTitle('Dice Roll Result'));
+    expect(screen.getByTitle('Dice Roll Result')).toHaveAttribute('value');
   });
   
