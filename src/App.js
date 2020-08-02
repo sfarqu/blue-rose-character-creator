@@ -19,8 +19,18 @@ function App() {
         >
           Learn React
         </a>
-        <Dice numberOfDice="2" />
       </header>
+      <body className="App-body">
+        <Dice numberOfDice="3" />
+        <Dice numberOfDice="3" />
+        <Dice numberOfDice="3" />
+        <Dice numberOfDice="3" />
+        <Dice numberOfDice="3" />
+        <Dice numberOfDice="3" />
+        <Dice numberOfDice="3" />
+        <Dice numberOfDice="3" />
+        <Dice numberOfDice="3" />
+      </body>
     </div>
   );
 }
