@@ -2,13 +2,6 @@
     text-transform: capitalize;
 }
 
-.Attribute-value {
-    background-color: white;
-    height: 50px;
-    width: 50px;
-    border-radius: 25px;
-}
-
 .Attribute {
     display: flex;
     flex-direction: row;

@@ -1,0 +1,21 @@
+.Stat-value {
+  background-color: white;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  border: solid 1px skyblue;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Stat {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Stat-adjust {
+  height: 2em;
+  width: 1em;
+}
