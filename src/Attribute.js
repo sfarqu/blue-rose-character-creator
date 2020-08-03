@@ -21,11 +21,24 @@ class Attribute extends Component {
       })
   }
 
+  renderStat() {
+      if (this.props.adjustable) {
+          return(
+            <Stat value={this.state.value} adjust={(inc) => this.adjustValue(inc)} showButtons={true} />
+          )
+      }
+      else {
+        return(
+            <Stat value={this.props.value} />
+          )
+      }
+  }
+
   render() {
     return(
         <div className="Attribute">
             <span className="Attribute-name">{this.props.name}</span>
-            <Stat value={this.state.value} adjust={(inc) => this.adjustValue(inc)} />
+            {this.renderStat()}
         </div>
       )
   }

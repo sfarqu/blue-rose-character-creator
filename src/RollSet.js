@@ -37,6 +37,7 @@ class RollSet extends Component {
             rolls[i] = this.diceRoll(i);
         }
         this.setState({rolls: rolls});
+        this.props.callback(rolls.map((value) => value.rollSum))
     }
 
     renderDice(index) {

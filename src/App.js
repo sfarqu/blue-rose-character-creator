@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import RollSet from './RollSet';
 import Attribute from './Attribute'
@@ -76,17 +76,25 @@ let character = {
   titles: {}
 };
 
-const PrimaryLayout = () => (
-  <div className="App">
-    <header className="App-header">
-      <h1>Character Creator</h1>
-    </header>
-    <main className="App-body">
-      <Route path="/" exact component={HomePage} />
-      <Route path="/attributes" component={AttributesPage} />
-    </main>
-  </div>
-)
+const attributesTable = [-2,-2,-2,-1,-1,0,0,0,1,1,1,2,2,2,3,3,3,4]
+
+class PrimaryLayout extends Component {
+  render() {
+    return(
+      <div className="App">
+      <header className="App-header">
+        <h1>Character Creator</h1>
+      </header>
+      <main className="App-body">
+        <Route path="/" exact component={HomePage} />
+        <Route path="/attributes" render={(routeProps) => (
+          <AttributesPage {...routeProps} {...this.props} />
+        )} />
+      </main>
+    </div>
+    )
+  }
+}
 
 const HomePage = () => {
   return(
@@ -94,22 +102,49 @@ const HomePage = () => {
   )
 }
 
-const AttributesPage = () => {
-  const attrs = character.attributes.map(value => <Attribute name={value.name} value={value.value} />);
-  return (
-    <div>
-      <RollSet numberOfRolls={9} numberOfDice={3} />
-      {attrs}
-    </div>
-  );
+class AttributesPage extends Component {
+
+  updateAttributes(values) {
+    let newChar = JSON.parse(JSON.stringify(this.props.character))
+    values.forEach((value, index) => {
+      let stat = attributesTable[value];
+      newChar.attributes[index].value = stat;
+    })
+    this.props.update(newChar)
+  }
+
+  render() {
+    const attrs = this.props.character.attributes.map(value => <Attribute name={value.name} value={value.value} max={3} min={0} />);
+    return (
+      <div>
+        <RollSet numberOfRolls={9} numberOfDice={3} callback={(vals) => this.updateAttributes(vals)} />
+        {attrs}
+      </div>
+    );
+  }
 }
 
-function App() {
-  return (
-    <BrowserRouter>
-      <PrimaryLayout />
-    </BrowserRouter>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      character: character
+    }
+  }
+
+  updateCharacter(newChar) {
+    this.setState({
+      character: newChar
+    })
+  }
+
+  render() {
+    return (
+      <BrowserRouter>
+        <PrimaryLayout character={this.state.character} update={(char) => this.updateCharacter(char)} />
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
