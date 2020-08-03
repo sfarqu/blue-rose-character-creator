@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import RollSet from './RollSet';
+import Attribute from './Attribute'
 import { BrowserRouter, Route } from 'react-router-dom';
 
 let character = {
@@ -94,7 +95,13 @@ const HomePage = () => {
 }
 
 const AttributesPage = () => {
-  return(<RollSet numberOfRolls={9} numberOfDice={3} />)
+  const attrs = character.attributes.map(value => <Attribute name={value.name} value={value.value} />);
+  return (
+    <div>
+      <RollSet numberOfRolls={9} numberOfDice={3} />
+      {attrs}
+    </div>
+  );
 }
 
 function App() {
