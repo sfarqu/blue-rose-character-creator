@@ -1,0 +1,15 @@
+a.big-button {
+  display: flex;
+  text-transform: capitalize;
+  min-width: 10em;
+  justify-content: center;
+  align-items: center;
+}
+
+a.big-button.tall {
+  min-height: 16em;
+}
+
+a.big-button.short {
+  min-height: 8em;
+}
