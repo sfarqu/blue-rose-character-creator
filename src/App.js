@@ -4,6 +4,7 @@ import RollSet from './RollSet';
 import Attribute from './Attribute'
 import { BrowserRouter, Route } from 'react-router-dom';
 import Navigation from './Navigation';
+import BigButton from './BigButton';
 
 let character = {
   name: null,
@@ -77,6 +78,24 @@ let character = {
   titles: {}
 };
 
+const allRaces = [
+  {
+    name: "human"
+  },
+  {
+    name: "vata"
+  },
+  {
+    name: "rhydan"
+  },
+  {
+    name: "night people"
+  },
+  {
+    name: "sea folk"
+  },
+]
+
 const attributesTable = [-2,-2,-2,-2,-1,-1,0,0,0,1,1,1,2,2,2,3,3,3,4]
 
 class PrimaryLayout extends Component {
@@ -86,6 +105,9 @@ class PrimaryLayout extends Component {
         <Route path="/" exact component={HomePage} />
         <Route path="/attributes" render={(routeProps) => (
           <AttributesPage {...routeProps} {...this.props} />
+        )} />
+        <Route path="/race" render={(routeProps) => (
+          <RacePage {...routeProps} {...this.props} />
         )} />
     </div>
     )
@@ -100,7 +122,7 @@ const HomePage = () => {
       </header>
       <main className="App-body">
         <div></div>
-          <div><a href="/attributes" class="button">Create Character</a></div>
+          <div><a href="/attributes" className="button">Create Character</a></div>
         <div></div>
         
       </main>
@@ -137,6 +159,38 @@ class AttributesPage extends Component {
             </div>
             <div> </div>
           </div>
+        </main>
+      </div>
+    );
+  }
+}
+
+
+class RacePage extends Component {
+
+  updateAttributes(values) {
+    let newChar = JSON.parse(JSON.stringify(this.props.character))
+    values.forEach((value, index) => {
+      let stat = attributesTable[value];
+      newChar.attributes[index].value = stat;
+    })
+    this.props.update(newChar)
+  }
+
+  render() {
+    const races = allRaces.map(value => <BigButton name={value.name} target={'/race/'+value.name} height="tall" />);
+    return (
+      <div>
+        <header className="App-page-header">
+          <Navigation target="/attributes" direction="left" text="Back" />
+          <h1>Race</h1>
+          <Navigation target="/race" direction="right" text="Next" />
+        </header>
+        <main className="App-body">
+          <div className="Race">
+            {races}
+          </div>
+          <div className="Description"></div>
         </main>
       </div>
     );

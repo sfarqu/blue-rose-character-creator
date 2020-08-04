@@ -44,6 +44,13 @@ button {
   justify-content: center;
 }
 
+.Race {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: center;
+}
+
 a.button {
   appearance: button;
   text-decoration: none;
