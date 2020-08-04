@@ -8,4 +8,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 0.25em;
+    max-width: 20em;
+    min-width: 12em;
 }

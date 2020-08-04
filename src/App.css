@@ -8,15 +8,23 @@
 
 .App-header {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
 }
 
-.App-body {
+.App-page-header {
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-body {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   font-family: 'Merriweather', serif;
 }
@@ -27,4 +35,18 @@
 
 button {
   font-family: 'Merriweather', serif;
+}
+
+.Attributes {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  justify-content: center;
+}
+
+a.button {
+  appearance: button;
+  text-decoration: none;
+  margin: 1em;
+  padding: 0.5em;
 }

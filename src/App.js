@@ -3,6 +3,7 @@ import './App.css';
 import RollSet from './RollSet';
 import Attribute from './Attribute'
 import { BrowserRouter, Route } from 'react-router-dom';
+import Navigation from './Navigation';
 
 let character = {
   name: null,
@@ -82,15 +83,10 @@ class PrimaryLayout extends Component {
   render() {
     return(
       <div className="App">
-      <header className="App-header">
-        <h1>Character Creator</h1>
-      </header>
-      <main className="App-body">
         <Route path="/" exact component={HomePage} />
         <Route path="/attributes" render={(routeProps) => (
           <AttributesPage {...routeProps} {...this.props} />
         )} />
-      </main>
     </div>
     )
   }
@@ -98,7 +94,17 @@ class PrimaryLayout extends Component {
 
 const HomePage = () => {
   return(
-        <button>Create Character</button>
+    <div>
+      <header className="App-header">
+        <h1>Blue Rose Character Creator</h1>
+      </header>
+      <main className="App-body">
+        <div></div>
+          <div><a href="/attributes" class="button">Create Character</a></div>
+        <div></div>
+        
+      </main>
+    </div>
   )
 }
 
@@ -117,8 +123,21 @@ class AttributesPage extends Component {
     const attrs = this.props.character.attributes.map(value => <Attribute name={value.name} value={value.value} max={3} min={0} />);
     return (
       <div>
-        <RollSet numberOfRolls={9} numberOfDice={3} callback={(vals) => this.updateAttributes(vals)} />
-        {attrs}
+        <header className="App-page-header">
+          <Navigation target="/" direction="left" text="Back" />
+          <h1>Attributes</h1>
+          <Navigation target="/race" direction="right" text="Next" />
+        </header>
+        <main className="App-body">
+            <RollSet numberOfRolls={9} numberOfDice={3} callback={(vals) => this.updateAttributes(vals)} />
+          <div className="Attributes">
+            <div> </div>
+            <div>
+              {attrs}
+            </div>
+            <div> </div>
+          </div>
+        </main>
       </div>
     );
   }
