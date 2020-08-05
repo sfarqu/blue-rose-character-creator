@@ -879,12 +879,41 @@ const RaceDetails = (props) => {
         </div>
       <div>
       <FocusSelector focuses={focuses} />
-      <RollSet numberOfRolls={2} numberOfDice={2} callback={() => {}} />
+      <BenefitsSelector race={props.match.params.raceId} />
       </div>
     </div>
     <div className="Description"></div>
   </div>
 )};
+
+class BenefitsSelector extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      benefits: []
+    }
+  }
+
+  selectBenefits(rolls) {
+    const table = allRaces[this.props.race].benefits;
+    this.setState({
+      benefits: rolls.map(value => table[value])
+    })
+  }
+
+  render() {
+    const benefits = this.state.benefits.map(b => {
+      let descriptor = b.type === "ability" ? "+1" : b.type
+      return(<div><span className="descriptor">{descriptor}:</span> <span>{b.name}</span></div>)
+    })
+    return(
+      <div>
+        <RollSet numberOfRolls={2} numberOfDice={2} callback={(rolls) => this.selectBenefits(rolls)} />
+        {benefits}
+      </div>
+    )
+  }
+}
 
 class App extends Component {
   constructor(props) {

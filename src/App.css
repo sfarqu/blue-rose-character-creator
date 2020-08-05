@@ -60,3 +60,9 @@ a.button {
   margin: 1em;
   padding: 0.5em;
 }
+
+.descriptor {
+  text-transform: capitalize;
+  font-variant: small-caps;
+  color: #13b7f8;
+}
