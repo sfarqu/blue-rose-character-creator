@@ -777,8 +777,11 @@ class PrimaryLayout extends Component {
         <Route path="/attributes" render={(routeProps) => (
           <AttributesPage {...routeProps} {...this.props} />
         )} />
-        <Route path="/race" render={(routeProps) => (
+        <Route path="/race" exact render={(routeProps) => (
           <RacePage {...routeProps} {...this.props} />
+        )} />
+        <Route path={`/race/:raceId`} render={(routeProps) => (
+          <RaceDetails {...routeProps} {...this.props} />
         )} />
     </div>
     )
@@ -836,54 +839,49 @@ class AttributesPage extends Component {
   }
 }
 
-
-class RacePage extends Component {
-  render() {
-    return (
-      <div>
-        <header className="App-page-header">
-          <Navigation target="/attributes" direction="left" text="Back" />
-          <h1>Race</h1>
-          <Navigation target="/race" direction="right" text="Next" />
-        </header>
-        <main className="App-body">
-          <Route path={this.props.match.path} exact component={RaceSelect} />
-          <Route path={`${this.props.match.path}/:raceId`} component={RaceDetails} />
-        </main>
-      </div>
-    );
-  }
-}
-
-const RaceSelect = () => {
+const RacePage = (props) => {
   const races = Object.entries(allRaces).map(value => <BigButton name={value[1].name} target={'/race/'+value[0]} height="tall" />);
-  return(
-    <div className="subLayout">
-      <div className="Race">
-        {races}
-      </div>
-      <div className="Description"></div>
+
+  return (
+    <div>
+      <header className="App-page-header">
+        <Navigation target="/attributes" direction="left" text="Back" />
+        <h1>Race</h1>
+        <Navigation target="/background" direction="right" text="Next" />
+      </header>
+      <main className="App-body">
+        <div className="Race">
+          {races}
+        </div>
+        <div className="Description"></div>
+      </main>
     </div>
-  )
-};
+  );
+}
 
 const RaceDetails = (props) => {
   const focuses = allRaces[props.match.params.raceId].base.focus.map((value) => allFocuses[value]);
   const attrs = character.attributes.map(value => <Attribute name={value.name} value={value.value} />);
   return(
-  <div className="subLayout">
-    <div className="Race">
-      {props.match.params.raceId}
+    <div>
+    <header className="App-page-header">
+      <Navigation target="/race" direction="left" text="Back" />
+      <h1>{props.match.params.raceId}</h1>
+      <Navigation target="/background" direction="right" text="Next" />
+    </header>
+    <main className="App-body">
+      <div className="Race">
+          <div>
+            {attrs}
+          </div>
         <div>
-          {attrs}
+        <FocusSelector focuses={focuses} />
+        <BenefitsSelector race={props.match.params.raceId} />
         </div>
-      <div>
-      <FocusSelector focuses={focuses} />
-      <BenefitsSelector race={props.match.params.raceId} />
       </div>
+      <div className="Description"></div>
+    </main>
     </div>
-    <div className="Description"></div>
-  </div>
 )};
 
 class BenefitsSelector extends Component {
