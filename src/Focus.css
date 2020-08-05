@@ -1,0 +1,17 @@
+.focus span {
+  text-transform: capitalize;
+}
+
+.focus.brief {
+  display: inline;
+}
+
+.focusSelector {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.focusSelector input {
+  margin-right: 1em;
+}
