@@ -1,5 +1,6 @@
 const Weapons = {
   axes: {
+    name: "Axes",
     ability: "fighting",
     variants: [
       {
@@ -35,6 +36,7 @@ const Weapons = {
     ]
   },
   bludgeons: {
+    name: "Bludgeons",
     ability: "fighting",
     variants: [
       {
@@ -70,6 +72,7 @@ const Weapons = {
     ]
   },
   bows: {
+    name: "Bows",
     ability: "accuracy",
     variants: [
       {
@@ -105,6 +108,7 @@ const Weapons = {
     ]
   },
   brawling: {
+    name: "Brawling",
     ability: "accuracy",
     variants: [
       {
@@ -130,6 +134,7 @@ const Weapons = {
     ]
   },
   heavyBlades: {
+    name: "Heavy Blades",
     ability: "fighting",
     variants: [
       {
@@ -155,6 +160,7 @@ const Weapons = {
     ]
   },
   lances: {
+    name: "Lances",
     ability: "fighting",
     variants: [
       {
@@ -180,6 +186,7 @@ const Weapons = {
     ]
   },
   lightBlades: {
+    name: "Light Blades",
     ability: "accuracy",
     variants: [
       {
@@ -205,6 +212,7 @@ const Weapons = {
     ]
   },
   polearms: {
+    name: "Polearms",
     ability: "fighting",
     variants: [
       {
@@ -230,6 +238,7 @@ const Weapons = {
     ]
   },
   staves: {
+    name: "Staves",
     ability: "accuracy",
     variants: [
       {

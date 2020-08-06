@@ -15,6 +15,7 @@ import { BenefitsSelector } from './Benefits'
 import { TalentSelector } from './Talent';
 import { PowerList } from './Power';
 import RoyalRoad from './RoyalRoad';
+import Weapons from './systemData/weapons';
 
 let character = {
   name: null,
@@ -96,6 +97,52 @@ const allClasses = Classes
 
 const attributesTable = [-2,-2,-2,-2,-1,-1,0,0,0,1,1,1,2,2,2,3,3,3,4]
 
+const allArmor = [
+  {
+    name: "None",
+    rating: 0,
+    penalty: 0
+  },
+  {
+    name: "Light",
+    rating: 3,
+    penalty: 0
+  },
+  {
+    name: "Medium",
+    rating: 5,
+    penalty: -2
+  },
+  {
+    name: "Heavy",
+    rating: 8,
+    penalty: -4
+  },
+]
+
+const allShields = [
+  {
+    name: "None",
+    bonus: 0,
+    trainedBonus: 0
+  },
+  {
+    name: "Light",
+    bonus: 1,
+    trainedBonus: 1
+  },
+  {
+    name: "Medium",
+    bonus: 1,
+    trainedBonus: 2
+  },
+  {
+    name: "Heavy",
+    bonus: 1,
+    trainedBonus: 3
+  },
+]
+
 class PrimaryLayout extends Component {
   render() {
     return(
@@ -118,6 +165,9 @@ class PrimaryLayout extends Component {
         )} />
         <Route path={`/class/:classId`} render={(routeProps) => (
           <ClassDetailsPage {...routeProps} {...this.props} />
+        )} />
+        <Route path="/equipment" exact render={(routeProps) => (
+          <EquipmentPage {...routeProps} {...this.props} />
         )} />
         <Route path="/calling" exact render={(routeProps) => (
           <CallingPage {...routeProps} {...this.props} />
@@ -200,7 +250,7 @@ const RacePage = (props) => {
 
 const RaceDetails = (props) => {
   const focuses = allRaces[props.match.params.raceId].base.focus.map((value) => allFocuses[value]);
-  const attrs = character.attributes.map(value => <Attribute name={value.name} value={value.value} />);
+  const attrs = props.character.attributes.map(value => <Attribute name={value.name} value={value.value} />);
   const dex = props.character.attributes[3].value ? props.character.attributes[3].value : 0
   const special = allRaces[props.match.params.raceId].base.special.map(value => <li>{value}</li>)
   const talents = allRaces[props.match.params.raceId].base.talents.map(value => allTalents[value])
@@ -382,6 +432,127 @@ const WeaponGroups = (props) => {
   </div>)
 }
 
+
+class EquipmentPage extends Component {
+  constructor(props) {
+    super(props)
+    const dex = this.props.character.attributes[3].value ? this.props.character.attributes[3].value : 0
+    this.state = {
+      shield: {
+        index: 0,
+        bonus: 0
+      },
+      dex: dex,
+      defense: 10,
+      armor: {
+        index: 0,
+        rating: 0,
+        penalty: 0
+      }
+    }
+  }
+
+  updateShield(event) {
+    const dex = this.props.character.attributes[3].value ? this.props.character.attributes[3].value : 0
+    this.setState({
+      shield: {
+        index: Number(event.target.value),
+        bonus: allShields[event.target.value].bonus
+      },
+      defense: 10
+    })
+  }
+
+  updateArmor(event) {
+    this.setState({
+      armor: {
+        index: Number(event.target.value),
+        rating: allArmor[event.target.value].rating,
+        penalty: allArmor[event.target.value].penalty
+      }
+
+    })
+  }
+
+  render() {
+    let weaponCount = this.props.character.class ? allClasses[this.props.character.class].weapons.baseCount : 2
+    const weapons = Object.entries(Weapons).map((value) => <option value={value[0]}>{value[1].name}</option>)
+    const weaponSelectors = Array(weaponCount).fill(0).map((v,i) => {
+      return(
+        <div>
+          <label for={"weapon" + i}>Weapon {i+1}</label>
+          <select name={"weapon" + i}>
+            {weapons}
+          </select>
+          <select name={"weapon" + i}>
+            <option value="empty">Select a weapon group</option>
+          </select>
+        </div>
+      )
+    })
+    const armor = allArmor.map((value, index) => {
+      return(
+        <div className="radio">
+          <label>
+            <input type="radio" value={index}
+            checked={this.state.armor.index === index}
+            onChange={(e) => this.updateArmor(e)}
+             />
+            {value.name}
+          </label>
+        </div>
+      )
+    })
+
+    const shields = allShields.map((value, index) => {
+      return(
+        <div className="radio">
+          <label>
+            <input type="radio" value={index}
+            checked={this.state.shield.index === index}
+            onChange={(e) => this.updateShield(e)}
+             />
+            {value.name}
+          </label>
+        </div>
+      )
+    })
+    return(
+      <div>
+      <header className="App-page-header">
+        <Navigation target="/class" direction="left" text="Back" />
+        <h1>Equipment</h1>
+        <Navigation target="/calling" direction="right" text="Next" />
+      </header>
+      <main className="App-body">
+        <div className="App-sublayout">
+          <section>
+            <h3>Choose your weapons</h3>
+            {weaponSelectors}
+            <h3>Armor</h3>
+            <form>
+              {armor}
+            </form>
+            <Attribute name="Armor Rating" value={this.state.armor.rating } />
+            <Attribute name="Armor Penalty" value={this.state.armor.penalty } />
+          </section>
+          <section>
+            <div className="Special">
+              <h3>Defense</h3>
+              <Attribute name="defense" value={this.state.defense + this.state.dex + this.state.shield.bonus} />
+            <h3>Shield</h3>
+            <form>
+              {shields}
+            </form>
+            </div>
+          </section>
+        </div>
+        <div className="Description"></div>
+      </main>
+      </div>
+  )
+  }
+}
 
 const CallingPage = (props) => {
   return (
