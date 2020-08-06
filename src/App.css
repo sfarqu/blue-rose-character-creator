@@ -40,14 +40,7 @@ button {
   font-family: 'Merriweather', serif;
 }
 
-.Attributes {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  justify-content: center;
-}
-
-.Race {
+.App-sublayout {
   display: flex;
   flex-direction: row;
   flex: 1;
@@ -73,17 +66,16 @@ a.button {
   align-items: flex-start;
 }
 
+.module {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
 .Background {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  flex: 1;
-  justify-content: center;
-}
-
-.Background-details {
-  display: flex;
-  flex-direction: row;
   flex: 1;
   justify-content: center;
 }

@@ -10,6 +10,7 @@ class PowerList extends Component {
         const talents = power.select.options.map(value => Talents[value])
         el = <TalentSelector talents={talents} level={power.select.level} />
         break
+      default:
     }
     return(el)
   }

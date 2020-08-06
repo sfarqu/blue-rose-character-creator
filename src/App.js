@@ -161,7 +161,7 @@ class AttributesPage extends Component {
         </header>
         <main className="App-body">
             <RollSet numberOfRolls={9} numberOfDice={3} callback={(vals) => this.updateAttributes(vals)} />
-          <div className="Attributes">
+          <div className="App-sublayout">
             <div> </div>
             <div>
               {attrs}
@@ -185,7 +185,7 @@ const RacePage = (props) => {
         <Navigation target="/background" direction="right" text="Next" />
       </header>
       <main className="App-body">
-        <div className="Race">
+        <div className="App-sublayout">
           {races}
         </div>
         <div className="Description"></div>
@@ -208,7 +208,7 @@ const RaceDetails = (props) => {
       <Navigation target="/background" direction="right" text="Next" />
     </header>
     <main className="App-body">
-      <div className="Race">
+      <div className="App-sublayout">
         <div>
           {attrs}
           <Attribute name="speed" value={allRaces[props.match.params.raceId].base.speed + dex } />
@@ -261,7 +261,7 @@ class BackgroundPage extends Component {
           <div className="Background">
             {backgrounds}
           </div>
-          <div className="Background-details">
+          <div className="App-sublayout">
     <p className="Description">{description}</p>
             <div>
           <FocusSelector focuses={focuses} />
@@ -309,7 +309,7 @@ const ClassPage = (props) => {
         <Navigation target="/equipment" direction="right" text="Next" />
       </header>
       <main className="App-body">
-        <div className="Race">
+        <div className="App-sublayout">
           {classes}
         </div>
         <div className="Description"></div>
@@ -344,11 +344,15 @@ class ClassDetailsPage extends Component {
         <Navigation target="/equipment" direction="right" text="Next" />
       </header>
       <main className="App-body">
-        <div className="Class">
-          <div>
-            <Attribute name="health" value={this.state.health } />
-            <RollSet numberOfRolls={1} numberOfDice={1} callback={(roll) => this.updateHealth(roll)} />
-          </div>
+        <div className="App-sublayout">
+          <section>
+            <h3>Roll for starting health</h3>
+            <div className="module">
+              <Attribute name="health" value={this.state.health } />
+              <RollSet numberOfRolls={1} numberOfDice={1} callback={(roll) => this.updateHealth(roll)} />
+            </div>
+            <WeaponGroups weapons={allClasses[this.props.match.params.classId].weapons} />
+          </section>
           <div>
             <div className="Special">
               <h3>Starting Powers</h3>
@@ -363,6 +367,15 @@ class ClassDetailsPage extends Component {
       </div>
   )
   }
+}
+
+const WeaponGroups = (props) => {
+  const groups = props.weapons.require.map(val => <li>{val}</li>)
+  return(<div>
+    <h3>Weapons</h3>
+    Trained in: <ul>{groups}
+      </ul>
+  </div>)
 }
 
 class App extends Component {

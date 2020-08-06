@@ -54,7 +54,7 @@ const Classes = {
         {
           name: "Expert's Armor",
           type: "armorTraining",
-          type: "medium"
+          level: "medium"
         },
         {
           name: "Starting Talent",
