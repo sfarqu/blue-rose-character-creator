@@ -181,7 +181,7 @@ const Races = {
       focus: ["stamina","might"],
       speed: 10,
       talents: [],
-      special: ["Dark Sight: you can see up to 30yds in darkeness without a light source",
+      special: ["Dark Sight: you can see up to 30yds in darkness without a light source",
       "Bright light (equal to full daylight) blinds you for one round when you are first exposed to it"]
     },
     benefits: [

@@ -1,0 +1,17 @@
+.talent span {
+  text-transform: capitalize;
+}
+
+.talent.brief {
+  display: inline;
+}
+
+.talentSelector {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.talentSelector input {
+  margin-right: 1em;
+}

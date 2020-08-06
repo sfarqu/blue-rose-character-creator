@@ -9,7 +9,9 @@ import { FocusBrief, FocusSelector } from './Focus';
 import Focuses from './systemData/focuses';
 import Backgrounds from './systemData/backgrounds';
 import Races from './systemData/races';
+import Talents from './systemData/talents';
 import { BenefitsSelector } from './Benefits'
+import { TalentSelector } from './Talent';
 
 let character = {
   name: null,
@@ -86,6 +88,7 @@ let character = {
 const allRaces = Races
 const allBackgrounds = Backgrounds
 const allFocuses = Focuses
+const allTalents = Talents
 
 const attributesTable = [-2,-2,-2,-2,-1,-1,0,0,0,1,1,1,2,2,2,3,3,3,4]
 
@@ -182,6 +185,9 @@ const RacePage = (props) => {
 const RaceDetails = (props) => {
   const focuses = allRaces[props.match.params.raceId].base.focus.map((value) => allFocuses[value]);
   const attrs = character.attributes.map(value => <Attribute name={value.name} value={value.value} />);
+  const dex = props.character.attributes[3].value ? props.character.attributes[3].value : 0
+  const special = allRaces[props.match.params.raceId].base.special.map(value => <li>{value}</li>)
+  const talents = allRaces[props.match.params.raceId].base.talents.map(value => allTalents[value])
   return(
     <div>
     <header className="App-page-header">
@@ -191,12 +197,20 @@ const RaceDetails = (props) => {
     </header>
     <main className="App-body">
       <div className="Race">
-          <div>
-            {attrs}
-          </div>
         <div>
-        <FocusSelector focuses={focuses} />
-        <BenefitsSelector benefits={allRaces[props.match.params.raceId].benefits} />
+          {attrs}
+          <Attribute name="speed" value={allRaces[props.match.params.raceId].base.speed + dex } />
+        </div>
+        <div>
+          <FocusSelector focuses={focuses} />
+          <BenefitsSelector benefits={allRaces[props.match.params.raceId].benefits} />
+          <div className="Special">
+            <h3>Special Powers</h3>
+            <ul>
+              {special}
+            </ul>
+          </div>
+          <TalentSelector talents={talents} level="novice" />
         </div>
       </div>
       <div className="Description"></div>
