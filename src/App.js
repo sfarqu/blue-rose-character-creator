@@ -9,6 +9,7 @@ import { FocusBrief, FocusSelector } from './Focus';
 import Focuses from './systemData/focuses';
 import Backgrounds from './systemData/backgrounds';
 import Races from './systemData/races';
+import { BenefitsSelector } from './Benefits'
 
 let character = {
   name: null,
@@ -195,42 +196,13 @@ const RaceDetails = (props) => {
           </div>
         <div>
         <FocusSelector focuses={focuses} />
-        <BenefitsSelector race={props.match.params.raceId} />
+        <BenefitsSelector benefits={allRaces[props.match.params.raceId].benefits} />
         </div>
       </div>
       <div className="Description"></div>
     </main>
     </div>
 )};
-
-class BenefitsSelector extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      benefits: []
-    }
-  }
-
-  selectBenefits(rolls) {
-    const table = allRaces[this.props.race].benefits;
-    this.setState({
-      benefits: rolls.map(value => table[value])
-    })
-  }
-
-  render() {
-    const benefits = this.state.benefits.map(b => {
-      let descriptor = b.type === "ability" ? "+1" : b.type
-      return(<div><span className="descriptor">{descriptor}:</span> <span>{b.name}</span></div>)
-    })
-    return(
-      <div>
-        <RollSet numberOfRolls={2} numberOfDice={2} callback={(rolls) => this.selectBenefits(rolls)} />
-        {benefits}
-      </div>
-    )
-  }
-}
 
 class App extends Component {
   constructor(props) {
