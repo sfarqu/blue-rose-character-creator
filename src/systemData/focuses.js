@@ -160,12 +160,12 @@ const Focuses = {
     group: "dexterity"
   },
   sailing: {
-    name: "",
+    name: "sailing",
     description: "",
     group: "dexterity"
   },
   stealth: {
-    name: "sailing",
+    name: "stealth",
     description: "",
     group: "dexterity"
   },
@@ -404,7 +404,7 @@ const Focuses = {
     description: "",
     group: "willpower"
   },
-  selfDisipline: {
+  selfDiscipline: {
     name: "self-discipline",
     description: "",
     group: "willpower"

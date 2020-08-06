@@ -106,6 +106,9 @@ class PrimaryLayout extends Component {
         <Route path={`/race/:raceId`} render={(routeProps) => (
           <RaceDetails {...routeProps} {...this.props} />
         )} />
+        <Route path="/background" exact render={(routeProps) => (
+          <BackroundPage {...routeProps} {...this.props} />
+        )} />
     </div>
     )
   }
@@ -217,6 +220,74 @@ const RaceDetails = (props) => {
     </main>
     </div>
 )};
+
+
+class BackroundPage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      background: null
+    }
+  }
+
+  selectBackground(bg) {
+    this.setState({
+      background: bg
+    })
+  }
+
+  render() {
+    const backgrounds = Object.entries(allBackgrounds).map((value) => <BigButton name={value[1].name} id={value[0]} height="short" callback={(bg) => this.selectBackground(bg)} />);
+    const description = this.state.background ? allBackgrounds[this.state.background].description : ""
+    const focuses = this.state.background ? allBackgrounds[this.state.background].focus.map((value) => allFocuses[value]) : []
+    const languages = this.state.background ? allBackgrounds[this.state.background].language : []
+    return (
+      <div>
+        <header className="App-page-header">
+          <Navigation target="/race" direction="left" text="Back" />
+          <h1>Background</h1>
+          <Navigation target="/class" direction="right" text="Next" />
+        </header>
+        <main className="App-body">
+          <div className="Background">
+            {backgrounds}
+          </div>
+          <div className="Background-details">
+    <p className="Description">{description}</p>
+            <div>
+          <FocusSelector focuses={focuses} />
+            </div>
+            <div>
+
+            <LanguageSelector lang={languages} />
+            </div>
+          </div>
+        </main>
+      </div>
+    );
+  }
+}
+
+const LanguageSelector = (props) => {
+  const langs = props.lang.map(value => {
+    return (
+    <label>
+      <input type="checkbox" value={value.name}
+      checked={true}
+      //onChange={(e) => this.handleOptionChange(e)}
+       />
+      {value}
+    </label>
+    )
+  })
+  return(langs.length ?
+    <div className="languageSelector">
+      <h3>Languages Spoken</h3>
+      {langs}
+    </div>
+    : ""
+  )
+}
 
 class App extends Component {
   constructor(props) {
