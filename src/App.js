@@ -14,6 +14,7 @@ import Classes from './systemData/classes';
 import { BenefitsSelector } from './Benefits'
 import { TalentSelector } from './Talent';
 import { PowerList } from './Power';
+import RoyalRoad from './RoyalRoad';
 
 let character = {
   name: null,
@@ -117,6 +118,9 @@ class PrimaryLayout extends Component {
         )} />
         <Route path={`/class/:classId`} render={(routeProps) => (
           <ClassDetailsPage {...routeProps} {...this.props} />
+        )} />
+        <Route path="/calling" exact render={(routeProps) => (
+          <CallingPage {...routeProps} {...this.props} />
         )} />
     </div>
     )
@@ -376,6 +380,27 @@ const WeaponGroups = (props) => {
     Trained in: <ul>{groups}
       </ul>
   </div>)
+}
+
+
+const CallingPage = (props) => {
+  return (
+    <div>
+      <header className="App-page-header">
+        <Navigation target="/background" direction="left" text="Back" />
+        <h1>Calling, Destiny, & Fate</h1>
+        <Navigation target="/equipment" direction="right" text="Next" />
+      </header>
+      <main className="App-body">
+        <div className="App-sublayout">
+          <RoyalRoad trait="calling" />
+          <RoyalRoad trait="destiny" />
+          <RoyalRoad trait="fate" />
+        </div>
+        <div className="Description"></div>
+      </main>
+    </div>
+  );
 }
 
 class App extends Component {
