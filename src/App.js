@@ -10,6 +10,7 @@ import Focuses from './systemData/focuses';
 import Backgrounds from './systemData/backgrounds';
 import Races from './systemData/races';
 import Talents from './systemData/talents';
+import Classes from './systemData/classes';
 import { BenefitsSelector } from './Benefits'
 import { TalentSelector } from './Talent';
 
@@ -89,6 +90,7 @@ const allRaces = Races
 const allBackgrounds = Backgrounds
 const allFocuses = Focuses
 const allTalents = Talents
+const allClasses = Classes
 
 const attributesTable = [-2,-2,-2,-2,-1,-1,0,0,0,1,1,1,2,2,2,3,3,3,4]
 
@@ -107,7 +109,13 @@ class PrimaryLayout extends Component {
           <RaceDetails {...routeProps} {...this.props} />
         )} />
         <Route path="/background" exact render={(routeProps) => (
-          <BackroundPage {...routeProps} {...this.props} />
+          <BackgroundPage {...routeProps} {...this.props} />
+        )} />
+        <Route path="/class" exact render={(routeProps) => (
+          <ClassPage {...routeProps} {...this.props} />
+        )} />
+        <Route path={`/class/:classId`} render={(routeProps) => (
+          <ClassDetailsPage {...routeProps} {...this.props} />
         )} />
     </div>
     )
@@ -222,7 +230,7 @@ const RaceDetails = (props) => {
 )};
 
 
-class BackroundPage extends Component {
+class BackgroundPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -287,6 +295,73 @@ const LanguageSelector = (props) => {
     </div>
     : ""
   )
+}
+
+const ClassPage = (props) => {
+  const classes = Object.keys(allClasses).map(value => <BigButton name={value} target={'/class/'+value} height="tall" />);
+
+  return (
+    <div>
+      <header className="App-page-header">
+        <Navigation target="/background" direction="left" text="Back" />
+        <h1>Class</h1>
+        <Navigation target="/equipment" direction="right" text="Next" />
+      </header>
+      <main className="App-body">
+        <div className="Race">
+          {classes}
+        </div>
+        <div className="Description"></div>
+      </main>
+    </div>
+  );
+}
+
+class ClassDetailsPage extends Component {
+  constructor(props) {
+    super(props)
+    const con = this.props.character.attributes[2].value ? this.props.character.attributes[2].value : 0
+    this.state = {
+      baseHealth: allClasses[this.props.match.params.classId].baseHealth + con,
+      health: allClasses[this.props.match.params.classId].baseHealth + con
+    }
+  }
+
+  updateHealth(sum) {
+    this.setState({
+      health: Number(this.state.baseHealth) + Number(sum)
+    })
+  }
+
+  render() {
+    const powers = allClasses[this.props.match.params.classId].levels[1].map((value) => value.name);
+    return(
+      <div>
+      <header className="App-page-header">
+        <Navigation target="/class" direction="left" text="Back" />
+        <h1>{this.props.match.params.classId}</h1>
+        <Navigation target="/equipment" direction="right" text="Next" />
+      </header>
+      <main className="App-body">
+        <div className="Class">
+          <div>
+            <Attribute name="health" value={this.state.health } />
+            <RollSet numberOfRolls={1} numberOfDice={1} callback={(roll) => this.updateHealth(roll)} />
+          </div>
+          <div>
+            <div className="Special">
+              <h3>Starting Powers</h3>
+              <ul>
+                {powers}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="Description"></div>
+      </main>
+      </div>
+  )
+  }
 }
 
 class App extends Component {
