@@ -63,8 +63,8 @@ const Races = {
       ability: "any",
       focus: [],
       speed: 10,
-      talents: [],
-      special: []
+      talents: ["animism","healing","meditative","psychic","shaping","visionary"],
+      special: ["Your Constitution is considered 2 points higher when recovering health"]
     },
     benefits: [
       {},
@@ -118,8 +118,61 @@ const Races = {
   rhydan: {
     name: "rhydan",
     base: {
-      focus: []
-    }
+      focus: ["naturalLore","empathy","hearing","psychic","searching","seeing","smelling","tasting","touching","tracking","visionary"],
+      special: [
+        "You are limited to performing the kinds of physical manipulations an animal of your type can achieve.",
+        "Your size and animal shape limit your movement and actions in logical ways",
+        "You can only vocalize sounds an animal of your type can make. You still understand spoken language and can hear normally."
+      ]
+    },
+    benefits: [
+      {},
+      {},
+      {
+        type: "ability",
+        name: "dexterity"
+      },
+      {
+        type: "focus",
+        name: "smelling"
+      },
+      {
+        type: "focus",
+        name: "smelling"
+      },
+      {
+        type: "focus",
+        name: "stealth"
+      },
+      {
+        type: "focus",
+        name: "intimidation"
+      },
+      {
+        type: "ability",
+        name: "perception"
+      },
+      {
+        type: "ability",
+        name: "perception"
+      },
+      {
+        type: "focus",
+        name: "psychic"
+      },
+      {
+        type: "focus",
+        name: "naturalWeapons"
+      },
+      {
+        type: "focus",
+        name: "naturalWeapons"
+      },
+      {
+        type: "ability",
+        name: "willpower"
+      },
+    ]
   },
   nightpeople: {
     name: "night people",
@@ -127,8 +180,9 @@ const Races = {
       ability: "strength",
       focus: ["stamina","might"],
       speed: 10,
-      talents: ["Dark Sight"],
-      special: ["Bright light (equal to full daylight) blinds you for one round when you are first exposed to it"]
+      talents: [],
+      special: ["Dark Sight: you can see up to 30yds in darkeness without a light source",
+      "Bright light (equal to full daylight) blinds you for one round when you are first exposed to it"]
     },
     benefits: [
       {},
@@ -185,8 +239,11 @@ const Races = {
       ability: "constitution",
       focus: ["swimming"],
       speed: 10,
-      talents: ["Dark Sight"],
-      special: ["Gain a level of fatigue each day unless properly hydrated","Swim at your speed as a minor action with no roll"]
+      talents: [],
+      special: ["Dark Sight: See up to 20yds in darkness without a light source",
+      "Easily dehydrated: Gain a level of fatigue each day unless properly hydrated",
+      "Swim at your speed as a minor action (2*Speed as major action) with no ability test",
+      "You can hold your breath for 60 + (6 * Constitution) rounds"]
     },
     benefits: [
       {},

@@ -14,6 +14,11 @@ const Focuses = {
     description: "",
     group: "accuracy"
   },
+  naturalWeapon: {
+    name: "natural weapon",
+    description: "Proficiency with one of a Rhydan's natural weapons, such as biting or kicking",
+    group: "accuracy"
+  },
   lightBlades: {
     name: "light blades",
     description: "",
