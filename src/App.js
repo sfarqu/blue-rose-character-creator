@@ -13,6 +13,7 @@ import Talents from './systemData/talents';
 import Classes from './systemData/classes';
 import { BenefitsSelector } from './Benefits'
 import { TalentSelector } from './Talent';
+import { PowerList } from './Power';
 
 let character = {
   name: null,
@@ -334,7 +335,7 @@ class ClassDetailsPage extends Component {
   }
 
   render() {
-    const powers = allClasses[this.props.match.params.classId].levels[1].map((value) => value.name);
+    const powers = allClasses[this.props.match.params.classId].levels[1]
     return(
       <div>
       <header className="App-page-header">
@@ -352,7 +353,7 @@ class ClassDetailsPage extends Component {
             <div className="Special">
               <h3>Starting Powers</h3>
               <ul>
-                {powers}
+                <PowerList powers={powers} />
               </ul>
             </div>
           </div>
