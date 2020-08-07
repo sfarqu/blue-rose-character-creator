@@ -16,78 +16,8 @@ import { TalentSelector } from './Talent';
 import { PowerList } from './Power';
 import RoyalRoad from './RoyalRoad';
 import Weapons from './systemData/weapons';
-
-let character = {
-  name: null,
-  attributes: [
-    {
-      name: "accuracy",
-      value: null
-    },
-    {
-      name: "communication",
-      value: null
-    },
-    {
-      name: "constitution",
-      value: null
-    },
-    {
-      name: "dexterity",
-      value: null
-    },
-    {
-      name: "fighting",
-      value: null
-    },
-    {
-      name: "intelligence",
-      value: null
-    },
-    {
-      name: "perception",
-      value: null
-    },
-    {
-      name: "strength",
-      value: null
-    },
-    {
-      name: "willpower",
-      value: null
-    },
-  ],
-  race: null,
-  background: null,
-  class: null,
-  focuses: {},
-  arcana: {},
-  talents: {},
-  weapons: {},
-  relationships: [{
-    name: null,
-    intensity: null,
-    bond: null
-  }],
-  powers: {},
-  specializations: {},
-  speed: {},
-  defense: null,
-  armor: {},
-  health: null,
-  fatigue: null,
-  level: null,
-  persona: {
-    calling: null,
-    destiny: null,
-    fate: null,
-    corruption: null,
-    goals: {}
-  },
-  gear: {},
-  items: {},
-  titles: {}
-};
+import character from './character'
+import { connect } from 'react-redux'
 
 const allRaces = Races
 const allBackgrounds = Backgrounds
@@ -148,14 +78,14 @@ class PrimaryLayout extends Component {
     return(
       <div className="App">
         <Route path="/" exact component={HomePage} />
-        <Route path="/attributes" render={(routeProps) => (
-          <AttributesPage {...routeProps} {...this.props} />
+        <Route path="/attributes" exact render={(routeProps) => (
+          <ConnectedAttributes {...routeProps} {...this.props} />
         )} />
         <Route path="/race" exact render={(routeProps) => (
           <RacePage {...routeProps} {...this.props} />
         )} />
         <Route path={`/race/:raceId`} render={(routeProps) => (
-          <RaceDetails {...routeProps} {...this.props} />
+          <ConnectedRaceDetails {...routeProps} {...this.props} />
         )} />
         <Route path="/background" exact render={(routeProps) => (
           <BackgroundPage {...routeProps} {...this.props} />
@@ -197,23 +127,29 @@ const HomePage = () => {
 }
 
 class AttributesPage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      attributes: props.attributes
+    }
+  }
 
   updateAttributes(values) {
-    let newChar = JSON.parse(JSON.stringify(this.props.character))
+    let newAttributes = [...this.state.attributes]
     values.forEach((value, index) => {
       let stat = attributesTable[value];
-      newChar.attributes[index].value = stat;
+      newAttributes[index].value = stat;
+      this.props.dispatch({ type: 'UPDATE', attribute: {name: value, value: stat}})
     })
-    this.props.update(newChar)
   }
 
   render() {
-    const attrs = this.props.character.attributes.map(value => <Attribute name={value.name} value={value.value} max={3} min={0} />);
+    const attrs = this.state.attributes.map(value => <Attribute name={value.name} value={value.value} max={3} min={0} />);
     return (
       <div>
         <header className="App-page-header">
           <Navigation target="/" direction="left" text="Back" />
-          <h1>Attributes</h1>
+          <h1>Roll for Attributes</h1>
           <Navigation target="/race" direction="right" text="Next" />
         </header>
         <main className="App-body">
@@ -230,6 +166,16 @@ class AttributesPage extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    attributes: state.attributes
+  }
+}
+
+const ConnectedAttributes = connect(
+  mapStateToProps
+)(AttributesPage)
 
 const RacePage = (props) => {
   const races = Object.entries(allRaces).map(value => <BigButton name={value[1].name} target={'/race/'+value[0]} height="tall" />);
@@ -253,7 +199,7 @@ const RacePage = (props) => {
 
 const RaceDetails = (props) => {
   const focuses = allRaces[props.match.params.raceId].base.focus.map((value) => allFocuses[value]);
-  const attrs = props.character.attributes.map(value => <Attribute name={value.name} value={value.value} />);
+  const attrs = props.attributes.map(value => <Attribute name={value.name} value={value.value} />);
   const dex = props.character.attributes[3].value ? props.character.attributes[3].value : 0
   const special = allRaces[props.match.params.raceId].base.special.map(value => <li>{value}</li>)
   const talents = allRaces[props.match.params.raceId].base.talents.map(value => allTalents[value])
@@ -286,6 +232,10 @@ const RaceDetails = (props) => {
     </main>
     </div>
 )};
+
+const ConnectedRaceDetails = connect(
+  mapStateToProps
+)(RaceDetails)
 
 
 class BackgroundPage extends Component {
