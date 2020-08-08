@@ -27,20 +27,24 @@ const ClassPage = (props) => {
   );
 }
 
-class ClassDetailsPage extends Component {
+class ClassDetails extends Component {
   constructor(props) {
     super(props)
-    const con = this.props.character.attributes[2].value ? this.props.character.attributes[2].value : 0
+    const con = props.attributes[2].value ? props.attributes[2].value : 0
     this.state = {
       baseHealth: Classes[this.props.match.params.classId].baseHealth + con,
-      health: Classes[this.props.match.params.classId].baseHealth + con
+      health: 
+      {
+        base: props.health.base + con,
+        bonus: props.health.bonus
+      }
     }
   }
 
   updateHealth(sum) {
-    this.setState({
-      health: Number(this.state.baseHealth) + Number(sum)
-    })
+    this.props.dispatch({ type: 'UPDATE', health: { 
+      bonus: Number(sum)
+    }})
   }
 
   render() {
@@ -57,7 +61,7 @@ class ClassDetailsPage extends Component {
           <section>
             <h3>Roll for starting health</h3>
             <div className="module">
-              <Attribute name="health" value={this.state.health } />
+              <Attribute name="health" value={this.state.health.base + this.state.health.bonus } />
               <RollSet numberOfRolls={1} numberOfDice={1} callback={(roll) => this.updateHealth(roll)} />
             </div>
             <WeaponGroups weapons={Classes[this.props.match.params.classId].weapons} />
@@ -86,5 +90,14 @@ const WeaponGroups = (props) => {
       </ul>
   </div>)
 }
+
+const mapStateToProps = (state) => {
+  return {
+    attributes: state.attributes,
+    health: state.health
+  }
+}
+
+const ClassDetailsPage = connect(mapStateToProps)(ClassDetails)
 
 export { ClassPage, ClassDetailsPage }

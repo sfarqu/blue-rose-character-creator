@@ -14,9 +14,45 @@ function attributes(state = [], action) {
   }
 }
 
+function armor(state = {}, action) {
+  switch (action.type) {
+    case 'UPDATE':
+      return Object.assign(state, action.armor)
+    default:
+      return state
+  }
+}
+
+function shield(state = {}, action) {
+  switch (action.type) {
+    case 'UPDATE':
+      return Object.assign(state, action.shield)
+    default:
+      return state
+  }
+}
+
+function health(state = {}, action) {
+  switch (action.type) {
+    case 'UPDATE':
+      return Object.assign(state, action.health)
+    default:
+      return state
+  }
+}
+
+function characterClass(state = 'human', action) {
+  switch (action.type) {
+    case 'UPDATE':
+      return action.class
+    default:
+      return state
+  }
+}
+
 const persistedState = loadState();
 
-const reducer = combineReducers({ attributes })
+const reducer = combineReducers({ attributes, armor, shield, health, characterClass })
 const store = createStore(reducer, persistedState ? persistedState : character)
 
 store.subscribe(() => saveState(store.getState()))

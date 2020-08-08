@@ -54,44 +54,34 @@ const allShields = [
 class EquipmentPage extends Component {
   constructor(props) {
     super(props)
-    const dex = this.props.character.attributes[3].value ? this.props.character.attributes[3].value : 0
+    const dex = props.attributes[3].value ? props.attributes[3].value : 0
     const weaponCount = this.props.character.class ? Classes[this.props.character.class].weapons.baseCount : 2
     const weapons = Array(weaponCount).fill({index: "axes", variant: 0})
     this.state = {
       weapon: weapons,
-      shield: {
-        index: 0,
-        bonus: 0
-      },
+      shield: props.shield,
       dex: dex,
       defense: 10,
-      armor: {
-        index: 0,
-        rating: 0,
-        penalty: 0
-      }
+      armor: props.armor
     }
   }
 
   updateShield(event) {
+    this.props.dispatch({ type: 'UPDATE', shield: {
+      index: Number(event.target.value),
+      bonus: allShields[event.target.value].bonus
+    }})
     this.setState({
-      shield: {
-        index: Number(event.target.value),
-        bonus: allShields[event.target.value].bonus
-      },
       defense: 10
     })
   }
 
   updateArmor(event) {
-    this.setState({
-      armor: {
-        index: Number(event.target.value),
-        rating: allArmor[event.target.value].rating,
-        penalty: allArmor[event.target.value].penalty
-      }
-
-    })
+    this.props.dispatch({ type: 'UPDATE', armor: {
+      index: Number(event.target.value),
+      rating: allArmor[event.target.value].rating,
+      penalty: allArmor[event.target.value].penalty
+    }})
   }
 
   updateWeaponGroup(event) {
@@ -194,4 +184,12 @@ class EquipmentPage extends Component {
   }
 }
 
-export default EquipmentPage
+const mapStateToProps = (state) => {
+  return {
+    attributes: state.attributes,
+    armor: state.armor,
+    shield: state.shield
+  }
+}
+
+export default connect(mapStateToProps)(EquipmentPage)

@@ -45,6 +45,10 @@ let character = {
   arcana: {},
   talents: {},
   weapons: {},
+  shield: {
+    index: 0,
+    bonus: 0
+  },
   relationships: [{
     name: null,
     intensity: null,
@@ -55,7 +59,10 @@ let character = {
   speed: null,
   defense: null,
   armor: {},
-  health: null,
+  health: {
+    base: 0,
+    bonus: 0
+  },
   fatigue: null,
   level: null,
   persona: {
