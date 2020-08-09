@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navigation from '../Navigation';
 import RollSet from '../RollSet';
-import Attribute from '../Attribute'
+import {Attribute} from '../Attribute'
 import { PowerList } from '../Power';
 import BigButton from '../BigButton';
 import { connect } from 'react-redux'
@@ -71,7 +71,7 @@ class ClassDetails extends Component {
     this.props.dispatch({ type: 'UPDATE', health: {
       bonus: Number(sum)
     }})
-    this.state.totalHealth = this.state.baseHealth + Number(sum)
+    this.setState({totalHealth: this.state.baseHealth + Number(sum)})
   }
 
   render() {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import Navigation from '../Navigation';
 import RollSet from '../RollSet';
-import Attribute from '../Attribute'
+import {Attribute} from '../Attribute'
 
 const attributesTable = [-2,-2,-2,-2,-1,-1,0,0,0,1,1,1,2,2,2,3,3,3,4]
 

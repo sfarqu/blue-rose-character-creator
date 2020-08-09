@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Navigation from '../Navigation';
-import Attribute from '../Attribute'
+import {Attribute} from '../Attribute'
 import { BenefitsSelector } from '../Benefits'
 import { TalentSelector } from '../Talent';
 import { FocusSelector } from '../Focus';

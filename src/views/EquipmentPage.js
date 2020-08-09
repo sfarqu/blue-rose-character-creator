@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navigation from '../Navigation';
-import Attribute from '../Attribute'
+import {Attribute} from '../Attribute'
 import { connect } from 'react-redux'
 import Classes from '../systemData/classes';
 import Weapons from '../systemData/weapons';
