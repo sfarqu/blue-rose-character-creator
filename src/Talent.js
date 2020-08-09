@@ -39,15 +39,13 @@ class TalentSelector extends Component {
   render() {
     const talents = this.props.talents.map(value => {
       return(
-        <div className="radio">
-          <label>
-            <input type="radio" value={value.name}
-            checked={this.state.selected === value.name}
-            onChange={(e) => this.handleOptionChange(e)}
-             />
-            <TalentLong talent={value} level={this.props.level} />
-          </label>
-        </div>
+        <label className="radio">
+          <input type="radio" value={value.name}
+          checked={this.state.selected === value.name}
+          onChange={(e) => this.handleOptionChange(e)}
+            />
+          <TalentLong talent={value} level={this.props.level} />
+        </label>
       )
       
     });
