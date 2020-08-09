@@ -5,7 +5,7 @@ import character from './character'
 import AttributesPage from './views/AttributesPage';
 import { RaceDetailsPage, RacePage } from './views/RacePage';
 import BackgroundPage from './views/BackgroundPage';
-import { ClassPage, ClassDetailsPage } from './views/ClassPage';
+import { ClassPage, ClassDetailsPage, ConnectedClassPage } from './views/ClassPage';
 import EquipmentPage from './views/EquipmentPage';
 import PersonaPage from './views/PersonaPage';
 import RelationshipsPage from './views/RelationshipsPage';
@@ -28,7 +28,7 @@ class PrimaryLayout extends Component {
           <BackgroundPage {...routeProps} {...this.props} />
         )} />
         <Route path="/class" exact render={(routeProps) => (
-          <ClassPage {...routeProps} {...this.props} />
+          <ConnectedClassPage {...routeProps} {...this.props} />
         )} />
         <Route path={`/class/:classId`} render={(routeProps) => (
           <ClassDetailsPage {...routeProps} {...this.props} />

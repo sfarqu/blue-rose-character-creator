@@ -7,24 +7,49 @@ import BigButton from '../BigButton';
 import { connect } from 'react-redux'
 import Classes from '../systemData/classes';
 
-const ClassPage = (props) => {
-  const classes = Object.keys(Classes).map(value => <BigButton name={value} target={'/class/'+value} height="tall" />);
-
-  return (
-    <div>
-      <header className="App-page-header">
-        <Navigation target="/background" direction="left" text="Back" />
-        <h1>Class</h1>
-        <Navigation target="/equipment" direction="right" text="Next" />
-      </header>
-      <main className="App-body">
-        <div className="App-sublayout">
-          {classes}
-        </div>
-        <div className="Description"></div>
-      </main>
-    </div>
-  );
+class ClassPage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      health: 
+      {
+        base: props.health.base
+      }
+    }
+  }
+  updateClass = (cls) => {
+    //const cls = event.target.name
+    this.props.dispatch({ type: 'UPDATE', health: { 
+      base: Classes[cls].baseHealth,
+      bonus: 0
+    }})
+  }
+  render() {
+    const classes = Object.keys(Classes).map(value => {
+      return (<BigButton name={value} 
+          target={'/class/'+value} 
+          height="tall" 
+          id={value}
+          callback={(cls) => this.updateClass(cls)}
+        />)
+      });
+  
+    return (
+      <div>
+        <header className="App-page-header">
+          <Navigation target="/background" direction="left" text="Back" />
+          <h1>Class</h1>
+          <Navigation target="/equipment" direction="right" text="Next" />
+        </header>
+        <main className="App-body">
+          <div className="App-sublayout">
+            {classes}
+          </div>
+          <div className="Description"></div>
+        </main>
+      </div>
+    );
+  }
 }
 
 class ClassDetails extends Component {
@@ -37,14 +62,16 @@ class ClassDetails extends Component {
       {
         base: props.health.base + con,
         bonus: props.health.bonus
-      }
+      },
+      totalHealth: props.health.base + con + props.health.bonus
     }
   }
 
   updateHealth(sum) {
-    this.props.dispatch({ type: 'UPDATE', health: { 
+    this.props.dispatch({ type: 'UPDATE', health: {
       bonus: Number(sum)
     }})
+    this.state.totalHealth = this.state.baseHealth + Number(sum)
   }
 
   render() {
@@ -61,7 +88,7 @@ class ClassDetails extends Component {
           <section>
             <h3>Roll for starting health</h3>
             <div className="module">
-              <Attribute name="health" value={this.state.health.base + this.state.health.bonus } />
+              <Attribute name="health" value={this.state.totalHealth } />
               <RollSet numberOfRolls={1} numberOfDice={1} callback={(roll) => this.updateHealth(roll)} />
             </div>
             <WeaponGroups weapons={Classes[this.props.match.params.classId].weapons} />
@@ -99,5 +126,6 @@ const mapStateToProps = (state) => {
 }
 
 const ClassDetailsPage = connect(mapStateToProps)(ClassDetails)
+const ConnectedClassPage = connect(mapStateToProps)(ClassPage)
 
-export { ClassPage, ClassDetailsPage }
+export { ConnectedClassPage, ClassDetailsPage }
