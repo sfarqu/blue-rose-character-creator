@@ -39,6 +39,7 @@ class RaceDetails extends Component {
     const specials = Races[props.match.params.raceId].base.special
     this.state = {
       bonuses: {
+        name: this.props.match.params.raceId,
         abilities: attrs.length === 1 ? attrs : [],
         focuses: focuses.length === 1 ? focuses : [],
         talents: [],
@@ -46,6 +47,11 @@ class RaceDetails extends Component {
         benefits: []
       }
     }
+    this.changeRace()
+  }
+
+  changeRace() {
+    this.props.dispatch({ type: 'CHANGE_RACE', raceBonuses: this.state.bonuses})
   }
 
   render() {
