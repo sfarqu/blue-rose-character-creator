@@ -5,7 +5,7 @@ import character from './character'
 import AttributesPage from './views/AttributesPage';
 import { RaceDetailsPage, RacePage } from './views/RacePage';
 import BackgroundPage from './views/BackgroundPage';
-import { ClassPage, ClassDetailsPage, ConnectedClassPage } from './views/ClassPage';
+import { ClassDetailsPage, ConnectedClassPage } from './views/ClassPage';
 import EquipmentPage from './views/EquipmentPage';
 import PersonaPage from './views/PersonaPage';
 import RelationshipsPage from './views/RelationshipsPage';

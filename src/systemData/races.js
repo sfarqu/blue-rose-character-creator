@@ -2,7 +2,7 @@ const Races = {
   human: {
     name: "human",
     base: {
-      ability: "any",
+      ability: ["accuracy","communication","constitution","dexterity","fighting","intelligence","perception","strength","willpower"],
       focus: ["riding","swimming"],
       speed: 10,
       talents: [],
@@ -60,7 +60,7 @@ const Races = {
   vata: {
     name: "vata",
     base: {
-      ability: "any",
+      ability: ["accuracy","communication","constitution","dexterity","fighting","intelligence","perception","strength","willpower"],
       focus: [],
       speed: 10,
       talents: ["animism","healing","meditative","psychic","shaping","visionary"],
@@ -177,7 +177,7 @@ const Races = {
   nightpeople: {
     name: "night people",
     base: {
-      ability: "strength",
+      ability: ["strength"],
       focus: ["stamina","might"],
       speed: 10,
       talents: [],
@@ -236,7 +236,7 @@ const Races = {
   seafolk: {
     name: "sea folk",
     base: {
-      ability: "constitution",
+      ability: ["constitution"],
       focus: ["swimming"],
       speed: 10,
       talents: [],

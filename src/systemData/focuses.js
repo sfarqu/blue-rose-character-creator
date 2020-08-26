@@ -84,7 +84,7 @@ const Focuses = {
     description: "",
     group: "communication"
   },
-  psychic: {
+  psychicC: {
     name: "psychic",
     description: "",
     group: "communication"
@@ -309,7 +309,7 @@ const Focuses = {
     description: "",
     group: "perception"
   },
-  psychic: {
+  psychicP: {
     name: "psychic",
     description: "",
     group: "perception"
