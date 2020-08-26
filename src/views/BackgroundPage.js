@@ -11,25 +11,25 @@ class BackgroundPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      background: null
+      race: {name: props.race}
     }
   }
 
   selectBackground(bg) {
-    this.setState({
-      background: bg
-    })
+    const background = { name: bg }
+    this.props.dispatch({ type: 'CHANGE_BACKGROUND', background: {...background}})
   }
 
   render() {
     const backgrounds = Object.entries(Backgrounds).map((value) => <BigButton name={value[1].name} id={value[0]} height="short" callback={(bg) => this.selectBackground(bg)} />);
-    const description = this.state.background ? Backgrounds[this.state.background].description : ""
-    const focuses = this.state.background ? Backgrounds[this.state.background].focus.map((value) => Focuses[value]) : []
-    const languages = this.state.background ? Backgrounds[this.state.background].language : []
+    const description = this.props.background ? Backgrounds[this.props.background].description : ""
+    const focuses = this.props.background ? Backgrounds[this.props.background].focus.map((value) => Focuses[value]) : []
+    const languages = this.props.background ? Backgrounds[this.props.background].language : []
+    const race = this.props.race.name ? this.props.race.name : ""
     return (
       <div>
         <header className="App-page-header">
-          <Navigation target="/race" direction="left" text="Back" />
+          <Navigation target={"/race/" + race} direction="left" text="Back" />
           <h1>Background</h1>
           <Navigation target="/class" direction="right" text="Next" />
         </header>
@@ -73,4 +73,11 @@ const LanguageSelector = (props) => {
   )
 }
 
-export default BackgroundPage
+const mapStateToProps = (state) => {
+  return {
+    race: state.raceBonuses,
+    background: state.background.name
+  }
+}
+
+export default connect(mapStateToProps)(BackgroundPage)

@@ -70,10 +70,21 @@ function raceBonuses(state = {}, action) {
   }
 }
 
+function background(state = {name: null}, action) {
+  switch (action.type) {
+    case 'CHANGE_BACKGROUND':
+      return Object.assign({}, action.background)
+    default:
+      return state
+  }
+}
+
 const persistedState = loadState();
 
-const reducer = combineReducers({ attributes, armor, shield, health, characterClass, focuses, raceBonuses })
-const store = createStore(reducer, persistedState ? persistedState : character)
+const reducer = combineReducers({ attributes, armor, shield, health, characterClass, focuses, raceBonuses, background })
+const store = createStore(reducer, persistedState ? persistedState : character
+  , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
 
 store.subscribe(() => saveState(store.getState()))
 
