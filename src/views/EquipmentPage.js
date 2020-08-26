@@ -125,7 +125,7 @@ class EquipmentPage extends Component {
         <div className="radio">
           <label>
             <input type="radio" value={index}
-            checked={this.state.armor.index === index}
+            checked={this.props.armor.index === index}
             onChange={(e) => this.updateArmor(e)}
              />
             {value.name}
@@ -139,7 +139,7 @@ class EquipmentPage extends Component {
         <div className="radio">
           <label>
             <input type="radio" value={index}
-            checked={this.state.shield.index === index}
+            checked={this.props.shield.index === index}
             onChange={(e) => this.updateShield(e)}
              />
             {value.name}
@@ -163,13 +163,13 @@ class EquipmentPage extends Component {
             <form>
               {armor}
             </form>
-            <Attribute name="Armor Rating" value={this.state.armor.rating } />
-            <Attribute name="Armor Penalty" value={this.state.armor.penalty } />
+            <Attribute name="Armor Rating" value={this.props.armor.rating } />
+            <Attribute name="Armor Penalty" value={this.props.armor.penalty } />
           </section>
           <section>
             <div className="Special">
               <h3>Defense</h3>
-              <Attribute name="defense" value={this.state.defense + this.state.dex + this.state.shield.bonus} />
+              <Attribute name="defense" value={this.state.defense + this.state.dex + this.props.shield.bonus} />
             <h3>Shield</h3>
             <form>
               {shields}
