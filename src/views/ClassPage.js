@@ -63,8 +63,12 @@ class ClassDetails extends Component {
         base: props.health.base + con,
         bonus: props.health.bonus
       },
-      totalHealth: props.health.base + con + props.health.bonus
+      totalHealth: props.health.base + con + props.health.bonus,
+      characterClass: {
+        name: this.props.match.params.classId
+      }
     }
+    this.changeClass()
   }
 
   updateHealth(sum) {
@@ -74,15 +78,22 @@ class ClassDetails extends Component {
     this.setState({totalHealth: this.state.baseHealth + Number(sum)})
   }
 
+  changeClass() {
+    this.props.dispatch({ type: 'CHANGE_CLASS', characterClass: this.state.characterClass})
+  }
+
   render() {
     const powers = Classes[this.props.match.params.classId].levels[1]
     return(
       <div>
       <header className="App-page-header">
-        <Navigation target="/class" direction="left" text="Back" />
+        <Navigation target="/background" direction="left" text="Back" />
         <h1>{this.props.match.params.classId}</h1>
         <Navigation target="/equipment" direction="right" text="Next" />
       </header>
+      <navigation>
+      <Navigation target="/class" direction="up" text="Change Class" />
+      </navigation>
       <main className="App-body">
         <div className="App-sublayout">
           <section>

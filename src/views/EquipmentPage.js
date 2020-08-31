@@ -156,10 +156,11 @@ class EquipmentPage extends Component {
         </div>
       )
     })
+    const characterClass = this.props.characterClass.name ? this.props.characterClass.name : ""
     return(
       <div>
       <header className="App-page-header">
-        <Navigation target="/class" direction="left" text="Back" />
+        <Navigation target={"/class/" + characterClass} direction="left" text="Back" />
         <h1>Equipment</h1>
         <Navigation target="/calling" direction="right" text="Next" />
       </header>
@@ -198,7 +199,8 @@ const mapStateToProps = (state) => {
     attributes: state.attributes,
     armor: state.armor,
     shield: state.shield,
-    weapon: state.weapons
+    weapon: state.weapons,
+    characterClass: state.characterClass
   }
 }
 

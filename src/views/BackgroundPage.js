@@ -26,12 +26,13 @@ class BackgroundPage extends Component {
     const focuses = this.props.background ? Backgrounds[this.props.background].focus.map((value) => Focuses[value]) : []
     const languages = this.props.background ? Backgrounds[this.props.background].language : []
     const race = this.props.race.name ? this.props.race.name : ""
+    const characterClass = this.props.characterClass.name ? this.props.characterClass.name : ""
     return (
       <div>
         <header className="App-page-header">
           <Navigation target={"/race/" + race} direction="left" text="Back" />
           <h1>Background</h1>
-          <Navigation target="/class" direction="right" text="Next" />
+          <Navigation target={"/class/" + characterClass} direction="right" text="Next" />
         </header>
         <main className="App-body">
           <div className="Background">
@@ -76,7 +77,8 @@ const LanguageSelector = (props) => {
 const mapStateToProps = (state) => {
   return {
     race: state.raceBonuses,
-    background: state.background.name
+    background: state.background.name,
+    characterClass: state.characterClass
   }
 }
 

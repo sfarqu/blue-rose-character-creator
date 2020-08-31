@@ -40,7 +40,7 @@ let character = {
   ],
   race: null,
   background: null,
-  class: null,
+  characterClass: {},
   focuses: {},
   arcana: {},
   talents: {},

@@ -43,8 +43,12 @@ function health(state = {}, action) {
   }
 }
 
-function characterClass(state = 'human', action) {
+function characterClass(state = {}, action) {
   switch (action.type) {
+    case 'UPDATE':
+      return Object.assign({}, state, action.characterClass)
+    case 'CHANGE_CLASS':
+      return Object.assign({}, action.characterClass)
     default:
       return state
   }
