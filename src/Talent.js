@@ -13,10 +13,10 @@ const TalentLong = (props) => {
   return(
     <div className="talent long">
       <div>
-        <span>{props.talent.name}</span> <span className="descriptor">{props.level}</span>
+        <strong>{props.talent.name}</strong> <span className="descriptor">{props.level}</span>
       </div>
       <div>
-        {props.talent[props.level].description}
+        {props.talent.description}
       </div>
     </div>
   )

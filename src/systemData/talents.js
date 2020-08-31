@@ -5,7 +5,7 @@ const Talents = {
     requirement: [],
     description: "You can learn and use animism arcana",
     novice: {
-      description: "You can use the Psychic Shield and Second Sight arcana, and gain one more.",
+      description: "You can use the Psychic Shield and Second Sight arcana, and you gain one of: Animal Messenger, Animal Summoning, or Psychic Contact. If you already know Psychic Shield and Second Sight, you gain one other animism arcanum in their place.",
       requiredArcana: ["psychicShield","secondSight"],
       selectArcana: ["animalMessenger","animalSummoning","psychicContact"]
     },
@@ -76,10 +76,10 @@ const Talents = {
     name: "Arcane Training",
     class: ["adept"],
     requirement: [],
-    description: "You can learn and use visionary arcana",
+    description: "You learn to master a diverse number of arcana",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You gain two additional arcana for a talent you already possess",
+      requiredArcana: []
     },
     journeyman: {},
     master: {}
@@ -98,9 +98,9 @@ const Talents = {
   },
   animalTraining: {
     name: "Animal Training",
-    class: ["adept"],
+    class: ["adept", "expert", "warrior"],
     requirement: [],
-    description: "You can learn and use visionary arcana",
+    description: "You know how to train animals",
     novice: {
       description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
       requiredArcana: ["visions","psychicShield","secondSight"]
@@ -110,131 +110,127 @@ const Talents = {
   },
   arcanePotential: {
     name: "Arcane Potential",
-    class: ["adept"],
+    class: ["expert","warrior"],
     requirement: [],
-    description: "You can learn and use visionary arcana",
+    description: "You have the potential to develop some arcane abilities",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You gain one arcanum of your choice.",
+      requiredArcana: []
     },
     journeyman: {},
     master: {}
   },
   carousing: {
     name: "Carousing",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["adept","expert","warrior"],
+    requirement: [{communication: 1, constitution: 1}],
+    description: "You take your fun seriously.",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You can drink other people under the table. When making Constitution (Drinking) tests as part of an advanced test, you gain a +1 bonus to the result of each Drama Die. This allows you to reach the success threshold faster.",
     },
     journeyman: {},
     master: {}
   },
   contacts: {
     name: "Contacts",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["adept","expert","warrior"],
+    requirement: [{communication: 1}],
+    description: "You know people, sometimes in the unlikeliest places.",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You can attempt to make a contact out of an NPC with a successful Communication (Persuasion) test.",
     },
     journeyman: {},
     master: {}
   },
   intrigue: {
     name: "Intrigue",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["adept","expert","warrior"],
+    requirement: [{communication: 2}],
+    description: "You are a master of secrets",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You know how to play the Game. Choose one of the following Communication focuses. If you fail a Communication test with your chosen fous, you can reroll it, but you must keep the result of the second roll.",
+      focuses: ["deception","etiquette","romance"]
     },
     journeyman: {},
     master: {}
   },
   linguistics: {
     name: "Linguistics",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["adept","expert","warrior"],
+    requirement: [{intelligence: 1}],
+    description: "You can learn new languages easily. When you learn a new language, you learn to both speak and read it.",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You learn an additional language from the following list.",
+      languages: ["aldin","faento","lartyan","rezean","oldAldin","oldVatazin"]
     },
     journeyman: {},
     master: {}
   },
   medicine: {
     name: "Medicine",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["adept","expert","warrior"],
+    requirement: [{intelligence: 1}],
+    description: "You can treat wounds and illnesses",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You have trained in the art of medicine, and your aid is swift and sure. Heal is a minor action for you.",
     },
     journeyman: {},
     master: {}
   },
   oratory: {
     name: "Oratory",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["adept","expert","warrior"],
+    requirement: [{focus: "persuasion"}],
+    description: "You are a skilled public speaker who can sway others with your words.",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You really know how to work a crowd. If you fail a Communication (Persuasion) test when trying to convince a group of something, you can reroll the test. However, you must keep the results of the second roll. You cannot make ths reroll in an intimate social setting or when trying to persuade an individual rather than a group.",
     },
     journeyman: {},
     master: {}
   },
   performance: {
     name: "Performance",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["adept","expert","warrior"],
+    requirement: [{focus: "performance"},{focus:"musicalLore"}],
+    description: "You have a natural talent for music",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You know how to play an instrument, sing, and write and read music. You are also an accomplished actor and performer. In addition, you may perform one of the following roleplahing stunts for 1SP less than its normal cost:",
+      stunts: ["jest","stunnedSilence","swayTheCrowd"]
     },
     journeyman: {},
     master: {}
   },
   scouting: {
     name: "Scouting",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["expert"],
+    requirement: [{dexterity: 2}],
+    description: "You are skilled at the art of reconnaissance",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You can use the lay of the land to your advantage. If you fail a Dexterity (Stealth) test, you can reroll it, but you must keep the results of the second roll.",
+      focus: ["stealth"]
     },
     journeyman: {},
     master: {}
   },
   thievery: {
     name: "Thievery",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["expert"],
+    requirement: [{dexterity: 2}],
+    description: "What's yours is yours and what's theirs is yours too",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You don't let locks stand in your way. If you fail a Dexterity (Lock Picking) test, you can reroll it, but you must keep the results of the second roll.",
+      focus: ["lockPicking"]
     },
     journeyman: {},
     master: {}
   },
   archeryStyle: {
     name: "Archery Style",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["expert","warrior"],
+    requirement: [{weapons: "bows"}],
+    description: "You are experienced with bows and crossbows.",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
+      description: "You know how to punish enemies who get too close. When shooting a bow or crossbow at an enemy within 6 yards of you, you inflict +1 damage.",
       requiredArcana: ["visions","psychicShield","secondSight"]
     },
     journeyman: {},
@@ -242,36 +238,35 @@ const Talents = {
   },
   dualWeaponStyle: {
     name: "Dual Weapon Style",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["expert","warrior"],
+    requirement: [{dexterity: 2}],
+    description: "You can fight with a weapon in your main hand and another in your off hand. Neither can be a two-handed weapon.",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "Wielding two weapons can aid you in attack or defense. If you take the Activate action, you gain either a +1 bonus on your melee attack rolls or a +1 Defense bonus vs. melee attacks until the end of the encounter. You can switch the bonus you are taking with another Activate action.",
+      bonuses: ["melee","defense"]
     },
     journeyman: {},
     master: {}
   },
   quickReflexes: {
     name: "Quick Reflexes",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["adept","expert","warrior"],
+    requirement: [{dexterity: 2}],
+    description: "You react to threats speedily and instinctually",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You are prepared for action in an instant. Once per round you can use Ready as a free action on your turn.",
     },
     journeyman: {},
     master: {}
   },
   singleWeaponStyle: {
     name: "Single Weapon Style",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["expert","warrior"],
+    requirement: [{perception: 2}],
+    description: "You can fight effectively wielding only a single-handed melee weapon",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "Fighting with a single weapon demands increasedc awareness. If you take the Activate action, you gain a +1 defencse bonus until the end of the encounter while fighting in this style.",
+      bonuses: ["defense"]
     },
     journeyman: {},
     master: {}
@@ -326,11 +321,11 @@ const Talents = {
   },
   lore: {
     name: "Lore",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["adept","expert","warrior"],
+    requirement: [{intelligence: 2}],
+    description: "You have an inquisitive mind and absorb facts easily",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
+      description: "You have studied hard. When you make a successful Intelligence test with a lore focus, the Narrator should give you an extra piece of information on the topic. The Narrator determines the additional information, and it may or may not be pertinent to the main question at hand.",
       requiredArcana: ["visions","psychicShield","secondSight"]
     },
     journeyman: {},
@@ -338,12 +333,12 @@ const Talents = {
   },
   observation: {
     name: "Observation",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["adept","expert","warrior"],
+    requirement: [{perception: 2}],
+    description: "You have an eye for detail",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "Your keen senses notice things others do not. Choose one fo the following Perception focuses. If you fail a Perception test with your chosen focus you can reroll it, but you must keep the result of the second roll.",
+      focuses: ["empathy","seeing"]
     },
     journeyman: {},
     master: {}
