@@ -15,16 +15,14 @@ class AttributesPage extends Component {
   }
 
   updateAttributes(values) {
-    let newAttributes = [...this.state.attributes]
     values.forEach((value, index) => {
       let stat = attributesTable[value];
-      newAttributes[index].value = stat;
-      this.props.dispatch({ type: 'UPDATE', attribute: {name: value, value: stat}})
+      this.props.dispatch({ type: 'UPDATE', index, attribute: {value: stat}})
     })
   }
 
   render() {
-    const attrs = this.state.attributes.map(value => <Attribute name={value.name} value={value.value} max={3} min={0} />);
+    const attrs = this.props.attributes.map(value => <Attribute name={value.name} value={value.value} max={3} min={0} />);
     return (
       <div>
         <header className="App-page-header">
