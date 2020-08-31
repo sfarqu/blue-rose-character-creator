@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/dom';
 import { render } from '@testing-library/react';
-import Attribute from './Attribute';
+import {Attribute, AdjustableAttribute} from './Attribute';
 
 test('Attribute name and value rendered', () => {
   render(<Attribute name="Swords" value={2} />);
@@ -21,12 +21,12 @@ test('Non-adjustable attribute updates with props', () => {
 })
 
 test('Adjustable attribute includes buttons', () => {
-  render(<Attribute name="Swords" value={2} adjustable={true} />);
+  render(<AdjustableAttribute name="Swords" value={2} adjustable={true} />);
   expect(screen.getByText('+')).toBeInTheDocument();
 })
 
 test('Adjustable attribute does not update with props', () => {
-  const { getByTestId, rerender } = render(<Attribute name="Swords" value={2} adjustable={true} />);
-  rerender(<Attribute name="Swords" value={4} adjustable={true} />)
+  const { getByTestId, rerender } = render(<AdjustableAttribute name="Swords" value={2} adjustable={true} />);
+  rerender(<AdjustableAttribute name="Swords" value={4} adjustable={true} />)
   expect(screen.getByText('2')).toBeInTheDocument();
 })
