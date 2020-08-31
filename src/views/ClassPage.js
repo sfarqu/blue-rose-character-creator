@@ -8,29 +8,13 @@ import { connect } from 'react-redux'
 import Classes from '../systemData/classes';
 
 class ClassPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      health: 
-      {
-        base: props.health.base
-      }
-    }
-  }
-  updateClass = (cls) => {
-    //const cls = event.target.name
-    this.props.dispatch({ type: 'UPDATE', health: { 
-      base: Classes[cls].baseHealth,
-      bonus: 0
-    }})
-  }
+  
   render() {
     const classes = Object.keys(Classes).map(value => {
       return (<BigButton name={value} 
           target={'/class/'+value} 
           height="tall" 
           id={value}
-          callback={(cls) => this.updateClass(cls)}
         />)
       });
   
@@ -58,12 +42,6 @@ class ClassDetails extends Component {
     const con = props.attributes[2].value ? props.attributes[2].value : 0
     this.state = {
       baseHealth: Classes[this.props.match.params.classId].baseHealth + con,
-      health: 
-      {
-        base: props.health.base + con,
-        bonus: props.health.bonus
-      },
-      totalHealth: props.health.base + con + props.health.bonus,
       characterClass: {
         name: this.props.match.params.classId
       }
@@ -75,11 +53,14 @@ class ClassDetails extends Component {
     this.props.dispatch({ type: 'UPDATE', health: {
       bonus: Number(sum)
     }})
-    this.setState({totalHealth: this.state.baseHealth + Number(sum)})
   }
 
   changeClass() {
-    this.props.dispatch({ type: 'CHANGE_CLASS', characterClass: this.state.characterClass})
+    this.props.dispatch({ 
+      type: 'CHANGE_CLASS', 
+      characterClass: this.state.characterClass,
+      health: { base: this.state.baseHealth }
+    })
   }
 
   render() {
@@ -99,7 +80,7 @@ class ClassDetails extends Component {
           <section>
             <h3>Roll for starting health</h3>
             <div className="module">
-              <Attribute name="health" value={this.state.totalHealth } />
+              <Attribute name="health" value={this.props.health.base + this.props.health.bonus } />
               <RollSet numberOfRolls={1} numberOfDice={1} callback={(roll) => this.updateHealth(roll)} />
             </div>
             <WeaponGroups weapons={Classes[this.props.match.params.classId].weapons} />

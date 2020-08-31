@@ -38,6 +38,8 @@ function health(state = {}, action) {
   switch (action.type) {
     case 'UPDATE':
       return Object.assign({}, state, action.health)
+    case 'CHANGE_CLASS':
+      return {...state, ...action.health}
     default:
       return state
   }
