@@ -9,6 +9,8 @@ function attributes(state = [], action) {
       return state.map((attribute, index) => {
         return index === action.index ? Object.assign({}, attribute, action.attribute) : attribute
       })
+    case 'RESET_ATTRIBUTES':
+      return character.attributes.slice()
     default:
       return state
   }
@@ -79,9 +81,24 @@ function background(state = {name: null}, action) {
   }
 }
 
+function weapons(state = [], action) {
+  switch (action.type) {
+    case 'UPDATE':
+      return state.map((weapon, index) => {
+        return index === action.index ? Object.assign({}, weapon, action.weapon) : weapon
+      })
+    case 'ADD_WEAPON':
+      return state.concat(action.weapon)
+    case 'RESET_WEAPONS':
+      return []
+    default:
+      return state
+  }
+}
+
 const persistedState = loadState();
 
-const reducer = combineReducers({ attributes, armor, shield, health, characterClass, focuses, raceBonuses, background })
+const reducer = combineReducers({ attributes, armor, shield, health, characterClass, focuses, raceBonuses, background, weapons })
 const store = createStore(reducer, persistedState ? persistedState : character
   , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )

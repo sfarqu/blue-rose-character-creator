@@ -44,7 +44,7 @@ let character = {
   focuses: {},
   arcana: {},
   talents: {},
-  weapons: {},
+  weapons: [],
   shield: {
     index: 0,
     bonus: 0

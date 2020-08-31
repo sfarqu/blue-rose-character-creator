@@ -55,10 +55,12 @@ class EquipmentPage extends Component {
   constructor(props) {
     super(props)
     const dex = props.attributes[3].value ? props.attributes[3].value : 0
-    const weaponCount = this.props.character.class ? Classes[this.props.character.class].weapons.baseCount : 2
-    const weapons = Array(weaponCount).fill({index: "axes", variant: 0})
+    //*** need to figure out how to set/reset weapons instead of here */
+    // const weaponCount = this.props.character.class ? Classes[this.props.character.class].weapons.baseCount : 2
+    // const weapons = Array(weaponCount).fill({index: "axes", variant: 0})
+    //this.props.dispatch({type: 'RESET_WEAPONS', weapon: {}})
+    //weapons.forEach(w => this.props.dispatch({type: 'ADD_WEAPON', weapon: w}))
     this.state = {
-      weapon: weapons,
       shield: props.shield,
       dex: dex,
       defense: 10,
@@ -85,36 +87,43 @@ class EquipmentPage extends Component {
   }
 
   updateWeaponGroup(event) {
-    const index = event.target.name.charAt(event.target.name.length - 1)
-    let newState = this.state.weapon
-    newState[index] = {
-      index: event.target.value,
-      variant: 0
-    }
-    this.setState({
-      weapon: newState
+    const index = parseInt(event.target.name.charAt(event.target.name.length - 1))
+    this.props.dispatch({
+      type: 'UPDATE',
+      index,
+      weapon: {
+        index: event.target.value,
+        variant: 0
+      }
+    })
+  }
+
+  updateWeaponVariant(event) {
+    const index = parseInt(event.target.name.charAt(event.target.name.length - 1))
+    this.props.dispatch({
+      type: 'UPDATE',
+      index,
+      weapon: {
+        variant: event.target.selectedIndex
+      }
     })
   }
 
   render() {
     let weaponCount = this.props.character.class ? Classes[this.props.character.class].weapons.baseCount : 2
     const weapons = Object.entries(Weapons).map((value) => (
-      <option value={value[0]}
-      checked={this.state.weapon.index === value[0]}
-      >{value[1].name}</option>
+      <option value={value[0]}>{value[1].name}</option>
       ))
     const weaponSelectors = Array(weaponCount).fill(0).map((v,i) => {
       return(
         <div>
           <label for={"weaponGroup" + i}>Weapon {i+1}</label>
-          <select name={"weaponGroup" + i} onChange={(e) => this.updateWeaponGroup(e)}>
+          <select name={"weaponGroup" + i} onChange={(e) => this.updateWeaponGroup(e)} value={this.props.weapon[i].index}>
             {weapons}
           </select>
-          <select name={"weaponVariant" + i}>
-            {Weapons[this.state.weapon[i].index].variants.map((value, index) => (
-            <option value={index}
-            checked={this.state.weapon.variant === index}
-            >{value.name}</option>
+          <select name={"weaponVariant" + i} onChange={(e) => this.updateWeaponVariant(e)} value={this.props.weapon[i].variant}>
+            {Weapons[this.props.weapon[i].index].variants.map((value, index) => (
+            <option value={index}>{value.name}</option>
             ))}
           </select>
         </div>
@@ -188,7 +197,8 @@ const mapStateToProps = (state) => {
   return {
     attributes: state.attributes,
     armor: state.armor,
-    shield: state.shield
+    shield: state.shield,
+    weapon: state.weapons
   }
 }
 
