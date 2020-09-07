@@ -14,6 +14,10 @@ import Talents from '../systemData/talents';
 const Race = (props) => {
   const races = Object.entries(Races).map(value => <BigButton name={value[1].name} target={'/race/'+value[0]} height="tall" />);
 
+  function changeRace() {
+    props.dispatch({ type: 'CHANGE_RACE', raceBonuses: {}})
+  }
+
   return (
     <div>
       <header className="App-page-header">
@@ -47,11 +51,15 @@ class RaceDetails extends Component {
         benefits: []
       }
     }
-    this.changeRace()
+    this.props.dispatch({ type: 'UPDATE', raceBonuses: {
+      name: this.props.match.params.raceId,
+      special: specials
+    }})
   }
 
-  changeRace() {
-    this.props.dispatch({ type: 'CHANGE_RACE', raceBonuses: this.state.bonuses})
+  updateTalent(e) {
+    this.state.bonuses.talents[0] = (e.target.value)
+    this.props.dispatch({ type: 'UPDATE', raceBonuses: this.state.bonuses })
   }
 
   render() {
@@ -60,6 +68,7 @@ class RaceDetails extends Component {
     const dex = this.props.attributes[3].value ? this.props.character.attributes[3].value : 0
     const special = Races[this.props.match.params.raceId].base.special.map(value => <li>{value}</li>)
     const talents = Races[this.props.match.params.raceId].base.talents.map(value => Talents[value])
+    const selectedTalent = this.props.bonuses.talents[0] || ""
     return(
       <div>
       <header className="App-page-header">
@@ -85,7 +94,7 @@ class RaceDetails extends Component {
                 {special}
               </ul>
             </div>
-            <TalentSelector talents={talents} level="novice" />
+            <TalentSelector talents={talents} level="novice" onChange={(e) => this.updateTalent(e)} selected={selectedTalent} />
           </div>
         </div>
         <div className="Description"></div>
@@ -99,7 +108,7 @@ class RaceDetails extends Component {
 const mapStateToProps = (state) => {
   return {
     attributes: state.attributes,
-    raceBonuses: state.bonuses
+    bonuses: state.raceBonuses
   }
 }
 

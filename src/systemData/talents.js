@@ -14,7 +14,7 @@ const Talents = {
     master: {}
   },
   healing: {
-    name: "healing",
+    name: "Healing",
     class: ["adept"],
     requirement: [],
     description: "You can learn and use healing arcana",

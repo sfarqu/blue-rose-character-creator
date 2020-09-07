@@ -23,25 +23,18 @@ const TalentLong = (props) => {
 }
 
 class TalentSelector extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      selected: null
-    }
-  }
 
   handleOptionChange(e) {
-    this.setState({
-      selected: e.target.value
-    })
+    this.props.onChange(e)
   }
 
   render() {
+    let selected = this.props.selected || ""
     const talents = this.props.talents.map(value => {
       return(
         <label className="radio">
           <input type="radio" value={value.name}
-          checked={this.state.selected === value.name}
+          checked={selected === value.name}
           onChange={(e) => this.handleOptionChange(e)}
             />
           <TalentLong talent={value} level={this.props.level} />
