@@ -7,7 +7,8 @@ const Talents = {
     novice: {
       description: "You can use the Psychic Shield and Second Sight arcana, and you gain one of: Animal Messenger, Animal Summoning, or Psychic Contact. If you already know Psychic Shield and Second Sight, you gain one other animism arcanum in their place.",
       requiredArcana: ["psychicShield","secondSight"],
-      selectArcana: ["animalMessenger","animalSummoning","psychicContact"]
+      selectArcana: ["animalMessenger","animalSummoning","psychicContact"],
+      replaceArcana: ["animalMessenger","animalSummoning","bodyControl","calm","enhancement","heartReading","natureReading","plantShaping","psychicContact","ward"]
     },
     journeyman: {},
     master: {}
@@ -19,7 +20,8 @@ const Talents = {
     description: "You can learn and use healing arcana",
     novice: {
       description: "You can use the Cure, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["cure","psychicShield","secondSight"]
+      requiredArcana: ["cure","psychicShield","secondSight"],
+      replaceArcana: ["bodyControl","drawVitality","enhancement","fleshShaping","sleep","ward"]
     },
     journeyman: {},
     master: {}
@@ -31,7 +33,8 @@ const Talents = {
     description: "You can learn and use meditative arcana",
     novice: {
       description: "You can use the Body Control, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["bodyControl","psychicShield","secondSight"]
+      requiredArcana: ["bodyControl","psychicShield","secondSight"],
+      replaceArcana: ["arcaneStrike","arcaneWeapon","bodyControl","enhancement","ward"]
     },
     journeyman: {},
     master: {}
@@ -43,7 +46,8 @@ const Talents = {
     description: "You can learn and use psychic arcana",
     novice: {
       description: "You can use the Psychic Contact, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["psychicContact","psychicShield","secondSight"]
+      requiredArcana: ["psychicContact","psychicShield","secondSight"],
+      replaceArcana: ["calm","heartReading","illusion","mindDelving","mindReading","mindShaping","psychicWeapon","senseMinds","sleep","ward"]
     },
     journeyman: {},
     master: {}
@@ -55,7 +59,8 @@ const Talents = {
     description: "You can learn and use shaping arcana",
     novice: {
       description: "You can use the Move Object, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["moveObject","psychicShield","secondSight"]
+      requiredArcana: ["moveObject","psychicShield","secondSight"],
+      replaceArcana: ["arcaneStrike","arcaneWeapon","coldShaping","earthShaping","fireShaping","lightShaping","manipulateObject","moveObject","plantShaping","summonSpirit","ward","waterShaping","windShaping"]
     },
     journeyman: {},
     master: {}
@@ -67,7 +72,8 @@ const Talents = {
     description: "You can learn and use visionary arcana",
     novice: {
       description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      requiredArcana: ["visions","psychicShield","secondSight"],
+      replaceArcana: ["natureReading","objectReading","scrying","summonSpirit","visions","ward"]
     },
     journeyman: {},
     master: {}
@@ -230,8 +236,7 @@ const Talents = {
     requirement: [{weapons: "bows"}],
     description: "You are experienced with bows and crossbows.",
     novice: {
-      description: "You know how to punish enemies who get too close. When shooting a bow or crossbow at an enemy within 6 yards of you, you inflict +1 damage.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You know how to punish enemies who get too close. When shooting a bow or crossbow at an enemy within 6 yards of you, you inflict +1 damage."
     },
     journeyman: {},
     master: {}
@@ -265,7 +270,7 @@ const Talents = {
     requirement: [{perception: 2}],
     description: "You can fight effectively wielding only a single-handed melee weapon",
     novice: {
-      description: "Fighting with a single weapon demands increasedc awareness. If you take the Activate action, you gain a +1 defencse bonus until the end of the encounter while fighting in this style.",
+      description: "Fighting with a single weapon demands increased awareness. If you take the Activate action, you gain a +1 defense bonus until the end of the encounter while fighting in this style.",
       bonuses: ["defense"]
     },
     journeyman: {},
@@ -273,48 +278,46 @@ const Talents = {
   },
   thrownWeaponStyle: {
     name: "Thrown Weapon Style",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["expert","warrior"],
+    requirement: [{weapons: ["axes","lightBlades","polearms"]}],
+    description: "You are adept with throwing weapons",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "Your accuracy is uncanny. You gain a +1 bonus on attack rolls with throwing weapons",
+      bonuses: ["attack"]
     },
     journeyman: {},
     master: {}
   },
   twoHandedStyle: {
     name: "Two-Handed Style",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["warrior"],
+    requirement: [{strength: 3, weapons: ["axes","bludgeons","heavyBlades","polearms"]}],
+    description: "You are deadly with two-handed melee weapons",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "The length of your weapon and the power of your attacks forces foes to yield ground. When you hit with a melee attack with a two-handed weapon, you can move the target 2 yards in any direction"
     },
     journeyman: {},
     master: {}
   },
   unarmedStyle: {
     name: "Unarmed Style",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["adept","expert","warrior"],
+    requirement: [{weapons: "brawling"}],
+    description: "You know a thing or two about brawling",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "Your hands are as tough as iron. When you attack with your fist, you inflict 1d6 damage instead of 1d3"
     },
     journeyman: {},
     master: {}
   },
   weaponShieldStyle: {
     name: "Weapon & Shield Style",
-    class: ["adept"],
-    requirement: [],
-    description: "You can learn and use visionary arcana",
+    class: ["warrior"],
+    requirement: [{strength: 2}],
+    description: "You've been trained to fight with a single-handed melee weapon and shield'",
     novice: {
-      description: "You can use the Visions, Psychic Shield, and Second Sight arcana.",
-      requiredArcana: ["visions","psychicShield","secondSight"]
+      description: "You can use shields of all shapes and sizes. You get a +2 Defense bonus when using a shield, instead of the usual untrained maximum of +1.",
+      bonuses: ["defense"]
     },
     journeyman: {},
     master: {}
