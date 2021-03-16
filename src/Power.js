@@ -8,9 +8,10 @@ class PowerList extends Component {
     switch(power.type) {
       case "talent":
         const talents = power.select.options.map(value => Talents[value])
-        el = <TalentSelector talents={talents} level={power.select.level} />
+        el = <TalentSelector talents={talents} onChange={this.props.onChange} level={power.select.level} />
         break
       default:
+        //TODO: display other types of powers
     }
     return(el)
   }

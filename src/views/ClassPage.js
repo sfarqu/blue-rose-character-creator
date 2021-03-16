@@ -44,6 +44,9 @@ class ClassDetails extends Component {
       baseHealth: Classes[this.props.match.params.classId].baseHealth + con,
       characterClass: {
         name: this.props.match.params.classId
+      },
+      bonuses: {
+        talents: []
       }
     }
     this.changeClass()
@@ -61,6 +64,12 @@ class ClassDetails extends Component {
       characterClass: this.state.characterClass,
       health: { base: this.state.baseHealth }
     })
+  }
+
+  // TODO: handle other types of powers than talents
+  updateTalent(e) {
+    this.state.bonuses.talents[0] = (e.target.value)
+    this.props.dispatch({ type: 'UPDATE', classBonuses: this.state.bonuses })
   }
 
   render() {
@@ -89,7 +98,7 @@ class ClassDetails extends Component {
             <div className="Special">
               <h3>Starting Powers</h3>
               <ul>
-                <PowerList powers={powers} />
+                <PowerList powers={powers} onChange={this.updateTalent.bind(this)} />
               </ul>
             </div>
           </div>
