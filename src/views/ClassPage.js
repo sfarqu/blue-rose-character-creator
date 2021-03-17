@@ -60,6 +60,7 @@ class ClassDetails extends Component {
         talents: []
       }
     }
+    // TODO: only update if coming from "select class" page
     this.updateClass()
   }
 
@@ -86,7 +87,7 @@ class ClassDetails extends Component {
 
   render() {
     const powers = Classes[this.props.match.params.classId].levels[1]
-    const selectedTalent = this.state.bonuses.talents[0] || ""
+    const selectedTalent = this.props.bonuses.talents[0] || ""
     return(
       <div>
       <header className="App-page-header">
@@ -139,7 +140,8 @@ const WeaponGroups = (props) => {
 const mapStateToProps = (state) => {
   return {
     attributes: state.attributes,
-    health: state.health
+    health: state.health,
+    bonuses: state.classBonuses
   }
 }
 
