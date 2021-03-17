@@ -62,7 +62,8 @@ class ClassDetails extends Component {
     this.props.dispatch({ 
       type: 'CHANGE_CLASS', 
       characterClass: this.state.characterClass,
-      health: { base: this.state.baseHealth }
+      health: { base: this.state.baseHealth },
+      classBonuses: {}
     })
   }
 
