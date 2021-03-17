@@ -75,6 +75,7 @@ class ClassDetails extends Component {
 
   render() {
     const powers = Classes[this.props.match.params.classId].levels[1]
+    const selectedTalent = this.state.bonuses.talents[0] || ""
     return(
       <div>
       <header className="App-page-header">
@@ -99,7 +100,11 @@ class ClassDetails extends Component {
             <div className="Special">
               <h3>Starting Powers</h3>
               <ul>
-                <PowerList powers={powers} onChange={this.updateTalent.bind(this)} />
+                <PowerList
+                    powers={powers}
+                    onChange={this.updateTalent.bind(this)}
+                    selected={selectedTalent}
+                />
               </ul>
             </div>
           </div>
