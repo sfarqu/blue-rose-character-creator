@@ -78,6 +78,17 @@ function raceBonuses(state = {}, action) {
   }
 }
 
+function classBonuses(state = {}, action) {
+  switch (action.type) {
+    case 'UPDATE':
+      return Object.assign({}, state, action.classBonuses)
+    case 'CHANGE_CLASS':
+      return Object.assign({}, action.classBonuses)
+    default:
+      return state
+  }
+}
+
 function background(state = {name: null}, action) {
   switch (action.type) {
     case 'CHANGE_BACKGROUND':
@@ -104,7 +115,7 @@ function weapons(state = [], action) {
 
 const persistedState = loadState();
 
-const reducer = combineReducers({ attributes, armor, shield, health, characterClass, focuses, raceBonuses, background, weapons })
+const reducer = combineReducers({ attributes, armor, shield, health, characterClass, focuses, raceBonuses, classBonuses, background, weapons })
 const store = createStore(reducer, persistedState ? persistedState : character
   , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
