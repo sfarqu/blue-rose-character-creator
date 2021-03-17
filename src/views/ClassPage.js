@@ -8,7 +8,18 @@ import { connect } from 'react-redux'
 import Classes from '../systemData/classes';
 
 class ClassPage extends Component {
-  
+  constructor(props) {
+    super(props)
+    this.changeClass()
+  }
+
+  changeClass() {
+    this.props.dispatch({
+      type: 'CHANGE_CLASS',
+      classBonuses: {}
+    })
+  }
+
   render() {
     const classes = Object.keys(Classes).map(value => {
       return (<BigButton name={value} 
@@ -17,7 +28,7 @@ class ClassPage extends Component {
           id={value}
         />)
       });
-  
+
     return (
       <div>
         <header className="App-page-header">
@@ -49,7 +60,15 @@ class ClassDetails extends Component {
         talents: []
       }
     }
-    this.changeClass()
+    this.updateClass()
+  }
+
+  updateClass() {
+    this.props.dispatch({
+      type: 'UPDATE',
+      characterClass: this.state.characterClass,
+      health: { base: this.state.baseHealth }
+    })
   }
 
   updateHealth(sum) {
@@ -58,14 +77,6 @@ class ClassDetails extends Component {
     }})
   }
 
-  changeClass() {
-    this.props.dispatch({ 
-      type: 'CHANGE_CLASS', 
-      characterClass: this.state.characterClass,
-      health: { base: this.state.baseHealth },
-      classBonuses: {}
-    })
-  }
 
   // TODO: handle other types of powers than talents
   updateTalent(e) {
