@@ -41,5 +41,6 @@
   },
   "devDependencies": {
     "@testing-library/dom": "^7.21.7"
-  }
+  },
+  "author": "Sara Farquharson"
 }
