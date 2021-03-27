@@ -15,7 +15,7 @@ test('Non-adjustable attribute does not include buttons', () => {
 })
 
 test('Non-adjustable attribute updates with props', () => {
-  const { getByTestId, rerender } = render(<Attribute name="Swords" value={2} />);
+  const { rerender } = render(<Attribute name="Swords" value={2} />);
   rerender(<Attribute name="Swords" value={4} />)
   expect(screen.getByText('4')).toBeInTheDocument();
 })
@@ -26,7 +26,7 @@ test('Adjustable attribute includes buttons', () => {
 })
 
 test('Adjustable attribute does not update with props', () => {
-  const { getByTestId, rerender } = render(<AdjustableAttribute name="Swords" value={2} adjustable={true} />);
+  const { rerender } = render(<AdjustableAttribute name="Swords" value={2} adjustable={true} />);
   rerender(<AdjustableAttribute name="Swords" value={4} adjustable={true} />)
   expect(screen.getByText('2')).toBeInTheDocument();
 })
