@@ -11,4 +11,5 @@ test('Stat value rendered', () => {
 test('Stat buttons rendered', () => {
   render(<Stat value={2} showButtons={true} />);
   expect(screen.getByLabelText('Increment')).toBeInTheDocument();
+  expect(screen.getByLabelText('Decrement')).toBeInTheDocument();
 });
