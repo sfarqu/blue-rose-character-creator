@@ -1,5 +1,10 @@
 module.exports = {
     "env": {
+        "commonjs": true,
+        "node": true,
+        "browser": true,
+        "es6": true,
+        "jest": true,
         "browser": true,
         "es2021": true
     },
@@ -7,16 +12,27 @@ module.exports = {
         "eslint:recommended",
         "plugin:react/recommended"
     ],
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 12,
+        "ecmaVersion": 2018,
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "import",
+        "react-hooks"
+    ],
+    "ignorePatterns": [
+        "node_modules"
     ],
     "rules": {
-    }
+    },
+    "settings": {
+        "react": {
+          "version": "detect",
+        },
+    },
 };
