@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/dom';
+import { fireEvent, screen } from '@testing-library/dom';
 import { render } from '@testing-library/react';
 import {Attribute, AdjustableAttribute} from './Attribute';
 
@@ -23,6 +23,27 @@ test('Non-adjustable attribute updates with props', () => {
 test('Adjustable attribute includes buttons', () => {
   render(<AdjustableAttribute name="Swords" value={2} adjustable={true} />);
   expect(screen.getByText('+')).toBeInTheDocument();
+})
+
+test('Adjustable attribute with buttons can be incremented', () => {
+  render(<AdjustableAttribute name="Swords" value={0} adjustable={true} />);
+  expect(screen.getByText('+')).toBeInTheDocument();
+  fireEvent.click(screen.getByText('+'), 1);
+  expect(screen.getByText('1')).toBeInTheDocument();
+})
+
+test('Adjustable attribute with buttons cannot be decremented below minimum', () => {
+  render(<AdjustableAttribute name="Swords" value={0} adjustable={true} min={0} />);
+  expect(screen.getByText('-')).toBeInTheDocument();
+  fireEvent.click(screen.getByText('-'), 1);
+  expect(screen.getByText('0')).toBeInTheDocument();
+})
+
+test('Adjustable attribute with buttons cannot be decremented below minimum', () => {
+  render(<AdjustableAttribute name="Swords" value={1} adjustable={true} max={1} />);
+  expect(screen.getByText('+')).toBeInTheDocument();
+  fireEvent.click(screen.getByText('+'), 1);
+  expect(screen.getByText('1')).toBeInTheDocument();
 })
 
 test('Adjustable attribute does not update with props', () => {
