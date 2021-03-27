@@ -5,7 +5,6 @@ module.exports = {
         "browser": true,
         "es6": true,
         "jest": true,
-        "browser": true,
         "es2021": true
     },
     "extends": [
@@ -29,6 +28,7 @@ module.exports = {
         "node_modules"
     ],
     "rules": {
+        "react/prop-types": 0
     },
     "settings": {
         "react": {
